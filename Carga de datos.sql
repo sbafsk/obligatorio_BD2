@@ -17,7 +17,15 @@ INSERT INTO artista (artistaId, artistaNombre, artistaFoto, esNacional, artistaC
 (14, 'Chantel Trujillo', '9ucjpZS1Nui2cPGfKWVC', 0, 55857208),
 (15, 'Loui Calvert', 'KDPonMB6wOSCym4vUVJ3', 0, 99150030),
 (16, 'Nichole Busby', 'A5OkIazXdr0GVfdehF6Y', 1, 48048289 ),
-(17, 'Ayyub Todd', 'X213l3PYz8bq55IHjO4a', 0, 92052444);
+(17, 'Ayyub Todd', 'X213l3PYz8bq55IHjO4a', 0, 92052444),
+(18, 'Nichole Busby', 'QIlpaO1AhIVj1iovZZpx', 1, 13548373 ),
+(19, 'Nichole Radjman', 'D2SvmMWCDPfKse3s3zyZ', 1, 49875077 ),
+(20, 'Chloe White', 'peIgwim9p6E8mjvcfy2l', 1, 18184518 ),
+(21, 'Ariana Gonzalez', '39xutQJvPYQNcvSpD8MV', 1, 34373795 ),
+(22, 'Catalina Rosch', 'tVttS0oHUW4SnABTiqaN', 1, 76959759 ),
+(23, 'Sarme Zend', 'NxmmipjfrCWjAnX73CPH', 1, 67072301 ),
+(24, 'Wardrey Cameron', 'DFEWd6Hwv9ich4Lm9PBI', 1, 69335322 );
+
 
 INSERT INTO album (albumId, albumNombre, artistaId, albumCantReproducciones) VALUES 
 ('1', 'Doctor in the house', 1, 36561283),
