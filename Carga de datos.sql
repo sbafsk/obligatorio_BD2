@@ -53,7 +53,8 @@ INSERT INTO album (albumId, albumNombre, artistaId, albumCantReproducciones) VAL
 ('22', 'Eye for an eye', 15, 32724363),
 ('23', 'Dark matters', 15, 20946534),
 ('24', 'March of ants', 4, 12200794),
-('25', 'Rocket science', 7, 30523900);
+('25', 'Rocket science', 7, 30523900),
+('26', 'Rocket to the moon', 7, 8468156);
 
 
 INSERT INTO cancion (cancionNombre, albumId, cancionCantReproducciones) VALUES 
@@ -156,7 +157,9 @@ INSERT INTO cancion (cancionNombre, albumId, cancionCantReproducciones) VALUES
 ('Matt Broke My Heart At Skegnes', '5', 40531575),
 ('In Stick We Trust', '7', 100703329),
 ('Yearning for Rancid Sausages', '8', 88631535),
+('Stairway to Hell', '7', 98765414),
 ('Stairway to Skegness', '6', 33240577);
+
 
 INSERT INTO plan1(planNombre, planCosto, esPlanVigente, esRecurrente) VALUES
 ('familiar', 20.00, 1, 1),

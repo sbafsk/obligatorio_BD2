@@ -1,12 +1,12 @@
 -- CREACION DE LA BASE DE DATOS Y SU CORRESPONDIENTES TABLAS
 --
--- Nota: Las restricciones que no son "not null" o "IDENTITY" 
+-- Nota: Las restricciones que NO son "not null" o "IDENTITY" 
 -- estan declaradas en el archivo Restricciones.sql
 --
 
--- DROP DATABASE OBLIGATORIO1BD2
+--DROP DATABASE OBLIGATORIO1BD2
 
-CREATE DATABASE OBLIGATORIO1BD2
+--CREATE DATABASE OBLIGATORIO1BD2
 GO
 USE OBLIGATORIO1BD2
 GO
@@ -40,8 +40,6 @@ CREATE TABLE plan1(planId int identity(1,1) not null,
 				   esPlanVigente numeric(1) not null, 
 				   esRecurrente numeric(1) not null)
 GO
-
-DROP TABLE plan1
 
 -- tabla usuario
 CREATE TABLE usuario(usuarioId character(20) not null, 
