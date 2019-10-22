@@ -407,7 +407,6 @@ INSERT INTO playList(playListNombre,usuarioId,playListFechaCreacion,esPlayListCu
 ('Free Blues','kamronemery','20140324',0),
 ('New Ghettotech','julesoliver','20010901',0);
 
-SELECT * FROM cancion
 
 INSERT INTO playListCancion(playListId,cancionId) VALUES
 (12,71),(12,25),(12,78),(12,77),(12,29),(12,100),(12,79),(12,47),(12,36),(12,66),(12,3),

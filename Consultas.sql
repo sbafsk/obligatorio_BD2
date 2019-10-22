@@ -63,3 +63,6 @@ WHERE cancionCantReproducciones = (
 -- f. Devolver mediante una consulta la cantidad de reproducciones totales del mes actual,
 -- la cantidad de temas distintos que se reprodujeron en el mes actual y el promedio de
 -- reproducciones por usuario en el mes corriente.
+SELECT COUNT(H.historialCancionId) AS TotalRepMes, COUNT(DISTINCT H.cancionId) AS CancionesDif, AVG(COUNT(H.usuarioId)) AS PromedioRep
+FROM historialCancion H
+WHERE H.historialCancionFecha = MONTH(GETDATE())
