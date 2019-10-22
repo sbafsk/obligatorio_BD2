@@ -1,5 +1,6 @@
 -- CARGA DE DATOS DE PRUEBA
-
+USE OBLIGATORIO1BD2
+GO
 INSERT INTO artista (artistaId, artistaNombre, artistaFoto, esNacional, artistaCantReproducciones) VALUES 
 (1, 'Martín Gonzalez', 'ZR72wx4WWR3OVLTOeOlt', 1, 75142343),
 (2, 'Kaya Forbes', 'o4F2a89903BG57DJzR4t', 0, 18000470),
@@ -164,7 +165,8 @@ INSERT INTO plan1(planNombre, planCosto, esPlanVigente, esRecurrente) VALUES
 ('trio', 11.00, 0, 0);
 
 
-INSERT INTO usuario (usuarioId, usuarioNombre, usuarioMail, fechaCreacion, planId, fechaPlanActivoDesde) VALUES('tiffanymyers', 'Tiffany Myers', 'tiffanymyers@gmail.com', '20091008', '0','20150126'),
+INSERT INTO usuario (usuarioId, usuarioNombre, usuarioMail, fechaCreacion, planId, fechaPlanActivoDesde) VALUES
+('tiffanymyers', 'Tiffany Myers', 'tiffanymyers@gmail.com', '20091008', '0','20150126'),
 ('marcelinamoody', 'Marcelina Moody', 'marcelinamoody@gmail.com', '20141109', '2','20181203'),
 ('devontemathis', 'Devonte Mathis', 'devontemathis@gmail.com', '20020216', '3','20091127'),
 ('bradenabbott', 'Braden Abbott', 'bradenabbott@gmail.com', '20100712', '1','20141106'),
