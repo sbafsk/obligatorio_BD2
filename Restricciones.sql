@@ -87,14 +87,14 @@ ADD CONSTRAINT PK_plan
 -- - “0” si se trata de un plan obsoleto.
 ALTER TABLE plan1 
 ADD CONSTRAINT check_esPlanVigente 
-CHECK (esPlanVigente = 0 OR esPlanVigente = 1)
+	CHECK (esPlanVigente = 0 OR esPlanVigente = 1)
 
 -- #El atributo esRecurrente toma el valor: 
 -- - “1” cuando el plan requiere de un  pago mensual para mantenerse activo.
 -- - “0” si se trata de un plan de pago puntual.
 ALTER TABLE plan1 
 ADD CONSTRAINT check_esRecurrente 
-CHECK (esRecurrente = 0 OR esRecurrente = 1)
+	CHECK (esRecurrente = 0 OR esRecurrente = 1)
 
 
 --
@@ -118,6 +118,9 @@ ADD CONSTRAINT uniq_usuarioNombre
 	UNIQUE (usuarioMail)
 
 
+-- ALTER TABLE usuario
+-- DROP CONSTRAINT FK_usuario_planId
+	
 --
 -- tabla compra
 --
@@ -133,6 +136,9 @@ ADD CONSTRAINT PK_compra
 	CONSTRAINT 	FK_compra_planId 
 	FOREIGN KEY (planId) 
 	REFERENCES plan1(planId)
+
+-- ALTER TABLE compra
+-- DROP CONSTRAINT FK_compra_planId 
 
 -- #La fecha de paga debe ser mayor o igual a la fecha de generada.
 ALTER TABLE compra 

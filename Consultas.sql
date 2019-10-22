@@ -1,3 +1,5 @@
+-- Consultas Obligatorio BD2
+
 USE OBLIGATORIO1BD2
 GO
 
@@ -5,8 +7,15 @@ GO
 -- Consulta A :
 -- a. Devolver id y nombre de los artistas nacionales con más de 3 álbumes, que tengan
 -- menos de 100 temas y hayan recibido más de 1000 reproducciones.
-
-
+SELECT  Ar.artistaId, Ar.artistaNombre, COUNT(DISTINCT Al.albumId) AS CantAlb, COUNT(C.cancionId) as CantCan
+FROM artista Ar, album Al, cancion C
+WHERE	Ar.artistaId = Al.artistaId AND
+		Al.albumId = C.albumId AND
+		Ar.esNacional =  0  AND
+		Ar.artistaCantReproducciones > 1000
+GROUP BY Ar.artistaId, Ar.artistaNombre
+HAVING	COUNT(DISTINCT Al.albumId) > 0 AND
+		COUNT(C.cancionId) < 100 
 
 
 -- Consulta B

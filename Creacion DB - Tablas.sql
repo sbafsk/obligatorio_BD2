@@ -34,12 +34,14 @@ CREATE TABLE cancion(cancionId int identity(1,1) not null,
 GO
 
 -- tabla plan ("plan" es una palabra reservada en SQL, se agrena un digito numerico)
-CREATE TABLE plan1(planId int identity(1,2) not null, 
+CREATE TABLE plan1(planId int identity(1,1) not null, 
                    planNombre varchar(30) not null, 
 				   planCosto decimal not null, 
 				   esPlanVigente numeric(1) not null, 
 				   esRecurrente numeric(1) not null)
 GO
+
+DROP TABLE plan1
 
 -- tabla usuario
 CREATE TABLE usuario(usuarioId character(20) not null, 
