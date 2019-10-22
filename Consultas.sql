@@ -34,10 +34,17 @@ WHERE esNacional=1 ORDER BY artistaCantReproducciones DESC;
 -- que la componen. En caso de ser una playlist curada, en el lugar correspondiente a
 -- nombre de usuario debe aparecer “playlist Curada”.
 
-SELECT p.playListId as 'ID playlist', u.usuarioNombre as 'Usuario', COUNT(pc.cancionId) as 'Cantidad de canciones'
+SELECT 
+	p.playListId as 'ID playlist', 
+	CASE p.esPlayListCurada 
+		WHEN 1 
+		THEN 'playlist Curada' 
+		ELSE u.usuarioNombre 
+		END AS 'Usuario', 
+	COUNT(pc.cancionId) as 'Cantidad de canciones'
 FROM playList as p, usuario as u, playListCancion as pc
 WHERE p.playListId = pc.playListId AND u.usuarioId = p.usuarioId
-GROUP BY pc.playListId, p.playListId, u.usuarioNombre;
+GROUP BY pc.playListId, p.playListId, u.usuarioNombre, p.esPlayListCurada;
 
 
 
