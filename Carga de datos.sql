@@ -431,7 +431,6 @@ INSERT INTO playListCancion(playListId,cancionId) VALUES
 (29,99),(29,88),(29,94),(29,31),(29,52),(29,15),(29,79),(29,3),(29,46),(29,89),(29,7),(29,91);
 
 
--- se deben generar otros datos de prueba, la fecha debe incluir hhMMss y no se pueden repetir.
 INSERT INTO historialCancion(historialCancionFecha,usuarioId,cancionId) VALUES
 ('20030322 04:05:12','korbenrhodes','7'),
 ('20180818 05:40:04','anumcotton','17'),
