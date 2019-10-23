@@ -184,6 +184,10 @@ ALTER TABLE playListCancion
 ADD CONSTRAINT PK_playListId_cancionId
 	PRIMARY KEY (playListId, cancionId),
 
+	CONSTRAINT FK_playListCancion_playListId
+	FOREIGN KEY (playListId)
+	REFERENCES playList(playListId),
+
 	CONSTRAINT FK_playListCancion_cancionId
 	FOREIGN KEY (cancionId)
 	REFERENCES cancion(cancionId)
