@@ -23,13 +23,15 @@ HAVING	COUNT(DISTINCT Al.albumId) > 3 AND
 -- reproducciones en lo que va del año. Devolver el listado en orden de cantidad de
 -- reproducciones descendente.
 
-SELECT TOP 10 A.artistaId as ID, A.artistaNombre as Nombre, A.artistaCantReproducciones AS CantidadRep
-FROM artista A 
-WHERE	esNacional = 1 --AND
-		-- se debe tener en cuenta que son las reproducciones del año actual
-ORDER BY artistaCantReproducciones DESC;
-
-
+SELECT TOP(10) A.artistaId as ID, A.artistaNombre as Nombre, COUNT(H.historialCancionId) AS CantidadRep
+FROM artista A, album AL, cancion C, historialCancion H
+WHERE	A.artistaId = AL.artistaId AND
+		AL.albumId = C.albumId AND
+		C.albumId = H.cancionId AND
+		esNacional = 1 AND
+		YEAR(H.historialCancionFecha) > YEAR(GETDATE())
+GROUP BY A.artistaId, A.artistaNombre
+ORDER BY  COUNT(H.historialCancionId) DESC;
 
 -- Consulta C
 -- c. Mostrar para cada playlist su nombre, el nombre de usuario y la cantidad de canciones
@@ -54,21 +56,28 @@ GROUP BY pc.playListId, p.playListId, u.usuarioNombre, p.esPlayListCurada
 -- d. Mostrar id y nombre de los usuarios que se registraron en la aplicación este año, tienen
 -- más de 4 playlists con 10 temas, no tienen playlists con menos de 3 temas y han
 -- reproducido algún tema en los últimos 10 días.
-SELECT U.usuarioId, U.usuarioNombre, fechaCreacion
+SELECT U.usuarioId, U.usuarioNombre
 FROM usuario U, playList P, playListCancion PC
 WHERE	U.usuarioId = P.usuarioId AND
-		U.fechaCreacion = DATEADD(YEAR,-10,GETDATE()) AND
-		YEAR(U.fechaCreacion) = YEAR(GETDATE()) AND
+		P.playListId = PC.playListId AND
+		YEAR(U.fechaCreacion) = YEAR(GETDATE())
+		AND
 		U.usuarioId IN (SELECT H.usuarioId 
 						FROM historialCancion H 
 						WHERE H.historialCancionFecha >= DATEADD(day,-10, GETDATE())
-						)
-GROUP BY U.usuarioId, U.usuarioNombre, fechaCreacion
+						) AND
+		U.usuarioId NOT IN (SELECT P.usuarioId
+							FROM playList P, playListCancion PC
+							WHERE P.playListId = PC.playListId
+							GROUP BY P.usuarioId
+							HAVING COUNT (PC.cancionId) <= 3
+							)
+GROUP BY U.usuarioId, U.usuarioNombre
 HAVING	COUNT(P.playListId) > 4 AND
-		COUNT(PC.cancionId) >= 10 AND
-		COUNT(PC.cancionId) <= 3 
+		COUNT(PC.cancionId) >= 10 
+		
+--select * from usuario
 
-select * from usuario
 -- Consulta E
 -- e. Mostrar el/los temas más escuchados en el último mes.
 

@@ -1,4 +1,8 @@
+--
 -- CARGA DE DATOS DE PRUEBA
+--
+
+
 USE OBLIGATORIO1BD2
 GO
 INSERT INTO artista (artistaId, artistaNombre, artistaFoto, esNacional, artistaCantReproducciones) VALUES 
@@ -169,6 +173,8 @@ INSERT INTO plan1(planNombre, planCosto, esPlanVigente, esRecurrente) VALUES
 
 
 INSERT INTO usuario (usuarioId, usuarioNombre, usuarioMail, fechaCreacion, planId, fechaPlanActivoDesde) VALUES
+('p1', 'Pepe Perez', 'pepelarana@gmail.com', '20190108', '2','20190826'),
+('p2', 'Perez Pepe', 'ranaelpepe@gmail.com', '20190108', '1','20190728'),
 ('tiffanymyers', 'Tiffany Myers', 'tiffanymyers@gmail.com', '20091008', '1','20150126'),
 ('marcelinamoody', 'Marcelina Moody', 'marcelinamoody@gmail.com', '20141109', '3','20181203'),
 ('devontemathis', 'Devonte Mathis', 'devontemathis@gmail.com', '20020216', '4','20091127'),
@@ -373,8 +379,13 @@ INSERT INTO compra (usuarioId, planId, fechaGenerada, fechaPaga) VALUES
 ('tyreesehansen', '4', '20180605', '20180623');
 
 
-
 INSERT INTO playList(playListNombre,usuarioId,playListFechaCreacion,esPlayListCurada) VALUES
+('Pepe1 Playlist5','p1','20190213',0),
+('Pepe1 Playlist2','p1','20190213',0),
+('Pepe1 Playlist3','p1','20190213',0),
+('Pepe1 Playlist4','p1','20190213',0),
+('Pepe1 Playlist1','p1','20190213',0),
+('Pepe2 Playlist','p2','20190206',0),
 ('Acoustic Blues','shanipowell','20000113',0),
 ('African Blues','cathyworthington','20030706',1),
 ('Blues Rock','corbanboone','20020531',0),
@@ -412,6 +423,10 @@ INSERT INTO playList(playListNombre,usuarioId,playListFechaCreacion,esPlayListCu
 
 
 INSERT INTO playListCancion(playListId,cancionId) VALUES
+(39,71),(39,25),(39,78),(39,77),(39,29),(39,100),(39,79),(39,47),(39,36),(39,66),(39,3),
+(38,71),(38,25),(38,78),(38,77),(38,29),(38,100),(38,79),(38,47),(38,36),(38,66),(38,3),
+(37,71),(37,25),(37,78),(37,77),(37,29),(37,100),(37,79),(37,47),(37,36),(37,66),(37,3),
+(35,71),(35,25),(35,78),(35,77),(35,29),(35,100),(35,79),(35,47),(35,36),(35,66),(35,3),
 (12,71),(12,25),(12,78),(12,77),(12,29),(12,100),(12,79),(12,47),(12,36),(12,66),(12,3),
 (4,63),(4,21),(4,42),(4,86),(4,11),(4,4),(4,69),(4,93),(4,47),(4,92),(4,77),(4,25),
 (9,34),(9,49),(9,45),(9,10),(9,85),(9,61),(9,88),(9,96),(9,48),(9,19),(9,68),(9,18),
