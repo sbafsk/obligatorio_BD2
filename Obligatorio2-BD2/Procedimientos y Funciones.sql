@@ -10,12 +10,23 @@ GO
 -- ##
 -- A. Crear un procedimiento almacenado 'reproduccionesPorUsuarioPorAnio' 
 -- que reciba como parámetros un año y un id de usuario, 
--- y devuelva por parámetro: la cantidad de artistas distintos escuchados por el usuario en el año, 
+-- y devuelva por parámetro: 
+-- la cantidad de artistas distintos escuchados por el usuario en el año, 
 -- la cantidad de álbumes distintos escuchados por el usuario en el año y 
 -- la cantidad de temas distintos escuchados por el usuario en el año.
 -- ##
 
+CREATE PROCEDURE reproduccionesPorUsuarioPorAnio
+	@anio datetime,
+	@idUsuario character(20),
+	@cantArtisAnio numeric(10) output,
+	@cantAlbumAnio numeric(10) output,
+	@cantTemasAnio numeric(10) output
+AS
+	SELECT @cantArtisAnio = COUNT()
+	FROM artista Ar, album Al, cancion CA, historialCancion HC
 
+	WHERE ar
 
 -- ##
 -- B. Crear un procedimiento almacenado 'albumMasEscuchadoArtista', 
