@@ -63,6 +63,14 @@ GO
 -- considerando solamente los planes con más de 10 usuarios.
 -- ##
 
+CREATE VIEW usuariosPorPlan
+AS (
+	SELECT DISTINCT p.planNombre, count(u.planId) as 'Cantidad' 
+	FROM usuario u, plan1 p 
+	WHERE u.planid = p.planid 
+	GROUP BY p.planNombre
+	HAVING count(u.planId) > 10
+);
 
 
 -- ##
