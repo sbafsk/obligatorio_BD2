@@ -23,10 +23,18 @@ CREATE PROCEDURE reproduccionesPorUsuarioPorAnio
 	@cantAlbumAnio numeric(10) output,
 	@cantTemasAnio numeric(10) output
 AS
-	SELECT @cantArtisAnio = COUNT()
-	FROM artista Ar, album Al, cancion CA, historialCancion HC
-
-	WHERE ar
+BEGIN
+	SELECT	@cantArtisAnio = COUNT(DISTINCT Ar.artistaId),
+			@cantAlbumAnio = COUNT(DISTINCT Al.albumId),
+			@cantTemasAnio = COUNT(DISTINCT CA.cancionId)
+	FROM	artista Ar, album Al, cancion Ca, historialCancion Hc
+	WHERE	Ar.artistaId = Al.artistaId AND
+			Al.albumId = CA.albumId AND
+			Ca.cancionId = Hc.cancionId AND
+			@anio = YEAR(Hc.historialCancionFecha) AND
+			@idUsuario = Hc.usuarioId 			
+END
+GO
 
 -- ##
 -- B. Crear un procedimiento almacenado 'albumMasEscuchadoArtista', 
@@ -35,7 +43,21 @@ AS
 -- y la cantidad de reproducciones de dicho álbum.
 -- ##
 
-
+CREATE PROCEDURE albumMasEscuchadoArtista
+	@idArtista int,
+	@albumMasReproducciones varchar(30) output,
+	@cantReproducciones numeric(10) output
+AS
+BEGIN
+	SELECT	@albumMasReproducciones = MAX(Al.albumNombre),
+			@cantReproducciones = COUNT(DISTINCT Al.albumId)
+	FROM	album Al, cancion Ca, historialCancion Hc
+	WHERE	@idArtista = Al.artistaId AND
+			Al.albumId = CA.albumId AND
+			Ca.cancionId = Hc.cancionId 
+	ORDER BY  COUNT(DISTINCT Al.albumId) DESC
+END
+GO
 
 -- ##
 -- C. Implementar una función 'reproduccionesPorArtistaPorAnio', 
@@ -43,7 +65,25 @@ AS
 -- devolviendo la cantidad de reproducciones del artista en el año.
 -- ##
 
+CREATE FUNCTION reproduccionesPorArtistaPorAnio(
+	@idArtista int,
+	@anio datetime
+	) 
+	RETURNS INT
+AS
+BEGIN
+	DECLARE @cantReproducciones;
 
+	SELECT	@cantReproducciones = COUNT (*)
+	FROM	album Al, cancion Ca, historialCancion Hc
+	WHERE	@idArtista = Al.artistaId AND
+			Al.albumId = CA.albumId AND
+			Ca.cancionId = Hc.cancionId AND
+			@anio = YEAR(Hc.historialCancionFecha)
+			
+	RETURN @cantReproducciones
+END
+GO
 
 -- ##
 -- D. Implementar un procedimiento almacenado 'resumenArtistaPorAnio', 
@@ -53,6 +93,10 @@ AS
 -- en que aparece alguno de sus temas, 
 -- la cantidad de usuarios distintos que escucharon alguno de sus temas en el año.
 -- ##
+
+CREATE PROCEDURE resumenArtistaPorAnio
+	@idArtista int,
+	@anio datetime
 
 
 
