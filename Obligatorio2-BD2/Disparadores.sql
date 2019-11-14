@@ -18,11 +18,12 @@ CREATE TRIGGER actualizarCantidadReproduccionCancionAlbumArtista
 	AFTER INSERT
 AS
 BEGIN	
+
+	SET NOCOUNT ON;	
+
 	DECLARE @idCancion int;
 	DECLARE @idAlbum character(5);
-	DECLARE @idArtista int;
-
-	SET NOCOUNT ON;		
+	DECLARE @idArtista int;		
 	
 	SELECT	@idCancion = I.cancionId,
 			@idAlbum = Al.albumId,
@@ -63,6 +64,9 @@ CREATE TRIGGER validarPlaylistCurada
 	INSTEAD OF INSERT
 AS
 BEGIN
+	
+	SET NOCOUNT ON;	
+
 	DECLARE @esCurada numeric(1);
 	DECLARE @usuario character(20);
 
@@ -96,12 +100,30 @@ GO
 -- ##
 
 CREATE TRIGGER validarPlaylistCantCanciones
-	ON playList
-	AFTER INSERT
+	ON playListCancion
+	INSTEAD OF INSERT
 AS
 BEGIN
+	
+	SET NOCOUNT ON;	
 
-	DECLARE @totalCanciones 
+	DECLARE @totalCanciones INT;	
+
+	SELECT @totalCanciones = COUNT(cancionId)
+	FROM playListCancion
+	WHERE playListId IN (	SELECT playListId
+							FROM inserted
+							)
+
+	IF(@totalCanciones >= 100)
+		BEGIN
+			PRINT('Una playlist no puede tener mas de 100 canciones')
+			ROLLBACK
+		END
+	ELSE
+		BEGIN
+		INSERT INTO playListCancion SELECT * FROM inserted
+		END
 
 END
 GO
@@ -115,6 +137,8 @@ CREATE TRIGGER validarVigenciaPlan
 	INSTEAD OF INSERT
 AS
 BEGIN
+
+	SET NOCOUNT ON;	
 	
 	DECLARE @planVigente int;
 	
@@ -149,21 +173,34 @@ CREATE TRIGGER elminarInfoArtista
 	AFTER DELETE
 AS
 BEGIN
-	DECLARE @iDArtista int
 
+	SET NOCOUNT ON;	
+
+	DECLARE @iDArtista int;
+	
 	SELECT @iDArtista = artistaId
-	FROM deleted
+	FROM deleted	
 
 	DELETE album
 	WHERE artistaId = @iDArtista
 
 	DELETE cancion
-	WHERE artistaId = @iDArtista
+	WHERE albumId IN (	SELECT albumId
+						FROM album 
+						WHERE artistaId = @iDArtista
+						)
 
-	DELETE playList
-	WHERE artistaId = @iDArtista
+	DELETE playListCancion
+	WHERE cancionId IN (SELECT cancionId
+						FROM cancion C, album A
+						WHERE	A.artistaId = @iDArtista AND
+								A.albumId = C.albumId
+						)
 
 	DELETE historialCancion
-	WHERE artistaId = @iDArtista
-
+	WHERE cancionId IN (SELECT cancionId
+						FROM cancion C, album A
+						WHERE	A.artistaId = @iDArtista AND
+								A.albumId = C.albumId
+						)
 END
