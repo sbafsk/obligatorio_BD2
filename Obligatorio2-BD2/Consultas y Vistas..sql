@@ -31,6 +31,32 @@ GO
 -- en lo que va del año.
 -- ##
 
+SELECT u.usuarioNombre, u.usuarioId
+FROM artista a, historialCancion hc, cancion c, album al, usuario u
+WHERE 
+	a.esNacional = 1 AND
+	hc.cancionId = c.cancionId AND
+	c.albumId = al.albumId AND
+	al.artistaId = a.artistaId AND 
+	hc.usuarioId = u.usuarioId AND 
+	YEAR(hc.historialCancionFecha) = YEAR(getDate())
+GROUP BY u.usuarioNombre, u.usuarioId
+HAVING COUNT(u.usuarioId) = (
+	SELECT MAX(cantidad) 
+	FROM (
+		SELECT Count(u.usuarioId) as 'Cantidad', u.usuarioNombre
+		FROM artista a, historialCancion hc, cancion c, album al, usuario u
+		WHERE 
+			a.esNacional = 1 AND
+			hc.cancionId = c.cancionId AND
+			c.albumId = al.albumId AND
+			al.artistaId = a.artistaId AND 
+			hc.usuarioId = u.usuarioId AND 
+			YEAR(hc.historialCancionFecha) = YEAR(getDate())
+		GROUP BY u.usuarioNombre
+	) tablaAux
+)
+
 
 
 -- ##
@@ -50,6 +76,27 @@ GO
 -- F. Eliminar los artistas que no tengan temas en playlists 
 -- y que no tengan reproducciones en lo que va del año.
 -- ##
+
+DELETE 
+FROM artista ar 
+WHERE 
+	ar.artistaId IN (	
+		SELECT a.artistaId
+		FROM artista as a, album as al, cancion as c
+		WHERE 
+			a.artistaId = al.artistaId AND
+			al.albumId = c.albumId AND
+			c.cancionId NOT IN (
+				SELECT pc.cancionId 
+				FROM playListCancion pc
+			) AND
+			c.cancionId NOT IN (
+				SELECT DISTInCT hc.cancionId
+				FROM historialCancion as hc
+				WHERE YEAR(hc.historialCancionFecha) = YEAR(getDate())
+			)
+	) 
+
 
 
 
