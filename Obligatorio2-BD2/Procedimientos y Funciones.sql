@@ -69,10 +69,9 @@ CREATE FUNCTION reproduccionesPorArtistaPorAnio(
 	@idArtista int,
 	@anio datetime
 	) 
-	RETURNS INT
-AS
+	RETURNS numeric(10)
 BEGIN
-	DECLARE @cantReproducciones;
+	DECLARE @cantReproducciones numeric(10);
 
 	SELECT	@cantReproducciones = COUNT (*)
 	FROM	album Al, cancion Ca, historialCancion Hc
@@ -97,7 +96,13 @@ GO
 CREATE PROCEDURE resumenArtistaPorAnio
 	@idArtista int,
 	@anio datetime
+AS
+BEGIN
+	SELECT *
+	FROM
 
+END
+GO
 
 
 -- ##
@@ -105,6 +110,26 @@ CREATE PROCEDURE resumenArtistaPorAnio
 -- que reciba por parámetros un rango de fechas y 
 -- devuelva el artista nacional más escuchado en dicho período.
 -- ##
+
+CREATE FUNCTION artistaNacionalMasEscuchadoRangoFechas(
+	@fechaDesde date,
+	@fechaHasta date
+	) returns varchar(30)
+AS
+BEGIN
+	DECLARE @artNacMasEscuchad varchar(30);
+	
+	SELECT @artNacMasEscuchad = Ar.artistaNombre
+	FROM artista Ar, album Al, cancion Ca, historialCancion Hc
+	WHERE	Ar.artistaId = Al.artistaId AND
+			Al.albumId = CA.albumId AND
+			Ca.cancionId = Hc.cancionId AND
+			@fechaDesde >= Hc.historialCancionFecha AND
+			@fechaHasta <= Hc.historialCancionFecha
+	ORDER BY  COUNT(Hc.cancionId) DESC
+
+	RETURN @artNacMasEscuchad 
+END
 
 
 
@@ -122,5 +147,13 @@ CREATE PROCEDURE resumenArtistaPorAnio
 -- G. Crear una función 'temasPorArtista' que reciba como parámetro un id de artista y
 -- devuelva la cantidad de temas de dicho artista.
 -- ## 
+
+CREATE FUNCTION temasPorArtista(
+	@idArtista int)
+	RETURNS NUMERIC(10)
+AS
+BEGIN
+	DECLARE @cantidadTemas NUMERIC(10)
+	SELECT 
 
 
