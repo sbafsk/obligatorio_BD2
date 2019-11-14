@@ -13,6 +13,16 @@ GO
 -- el álbum y el artista.
 -- ##
 
+CREATE TRIGGER actualizarCantidadReproduccionCancionAlbumArtista
+	ON cancion 
+	AFTER UPDATE
+AS
+BEGIN
+	SET NOCOUNT ON;
+	UPDATE cancion
+	SET cancionCantReproducciones = cancionCantReproducciones + 1
+END
+GO
 
 
 -- ##
