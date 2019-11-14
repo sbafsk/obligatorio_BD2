@@ -157,4 +157,14 @@ AS (
 -- Mostrar en el resultado solo los meses/años con más de 100 reproducciones.
 -- ##
 
+CREATE VIEW promedioReproduccionesUsuariosMesAnio
+AS (
+	SELECT YEAR(hc.historialCancionFecha) as 'Anio', 
+	MONTH(hc.historialCancionFecha) as 'Mes',
+	CAST(COUNT(*) as float)/(SELECT COUNT( DISTINCT hc2.usuarioId) FROM historialCancion hc2 WHERE MONTH(hc.historialCancionFecha) = MONTH(hc2.historialCancionFecha)
+		AND YEAR(hc.historialCancionFecha)=YEAR(hc2.historialCancionFecha) ) as 'Promedio'
+	FROM historialCancion hc
+	GROUP BY YEAR(hc.historialCancionFecha), MONTH(hc.historialCancionFecha)
+);
+
 
