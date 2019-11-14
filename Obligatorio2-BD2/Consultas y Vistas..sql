@@ -16,7 +16,20 @@ GO
 -- A. Mostrar los usuarios que han escuchado todas las playlists curadas 
 -- (basta con haber escuchado con un tema de la playlist para considerar escuchó la playlist).
 -- ##
-
+SELECT * 
+FROM usuario u
+WHERE NOT EXISTS
+    (SELECT * 
+    FROM playlist pl
+    WHERE pl.esPlaylistCurada = 1
+    AND NOT EXISTS(
+            SELECT * 
+            FROM playListCancion plc, historialCancion hc
+            WHERE plc.cancionId = hc.cancionId
+            	AND u.usuarioId = hc.usuarioId
+            	AND plc.playlistId = pl.playlistId
+    )
+);
 
 
 -- ##
@@ -24,6 +37,24 @@ GO
 -- En caso de que haya artistas sin álbumes, también deben mostrarse.
 -- ##
 
+SELECT a.artistaNombre,a.artistaId, count(*) as cantidadDiscosMasDe10
+FROM artista a, 
+(
+	SELECT al.artistaId,c.albumId
+	FROM cancion c, album al
+	WHERE al.albumId = c.albumId
+	GROUP BY c.albumId, al.artistaId
+	HAVING COUNT(*) > 6
+) b 
+WHERE a.artistaId=b.artistaId
+GROUP BY a.artistaNombre, a.artistaId
+
+UNION
+
+SELECT art.artistaNombre, art.artistaId, 0 from artista art WHERE
+art.artistaId NOT IN (
+	SELECT album.artistaId FROM album
+)
 
 
 -- ##
@@ -78,9 +109,9 @@ HAVING COUNT(u.usuarioId) = (
 -- ##
 
 DELETE 
-FROM artista ar 
+FROM artista
 WHERE 
-	ar.artistaId IN (	
+	artista.artistaId IN (	
 		SELECT a.artistaId
 		FROM artista as a, album as al, cancion as c
 		WHERE 
