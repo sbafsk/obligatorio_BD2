@@ -30,7 +30,7 @@ WHERE NOT EXISTS
             	AND plc.playlistId = pl.playlistId
     )
 );
-
+GO
 
 -- ##
 -- B. Mostrar para cada artista, la cantidad de álbumes que tiene con más de 10 temas. 
@@ -55,7 +55,7 @@ SELECT art.artistaNombre, art.artistaId, 0 from artista art WHERE
 art.artistaId NOT IN (
 	SELECT album.artistaId FROM album
 )
-
+GO
 
 -- ##
 -- C. Devolver id y nombre del/los usuario/s que escuchó/escucharon más temas nacionales
@@ -88,20 +88,48 @@ HAVING COUNT(u.usuarioId) = (
 	) tablaAux
 )
 
-
+GO
 
 -- ##
 -- D. Devolver el id y nombre de los usuarios, que tengan más de 3 playlists, 
 -- que hayan escuchado más de 10 temas por mes en los últimos 3 meses 
 -- y que no hayan escuchado más de 20 artistas distintos en el mes actual.
 -- ##
+SELECT U.usuarioId, U.usuarioNombre
+FROM usuario U, playList P, playListCancion PC, historialCancion HC, cancion C, album AL, artista AR
+WHERE	U.usuarioId = P.usuarioId AND
+		P.playListId = PC.playListId AND
+		U.usuarioId = HC.usuarioId AND
+		HC.cancionId = C.cancionId AND
+		C.albumId = AL.albumId AND
+		AL.artistaId = AR.artistaId AND
+		U.usuarioId IN (SELECT H.usuarioId 
+						FROM historialCancion H 
+						WHERE H.historialCancionFecha >= DATEADD(MONTH,-3, GETDATE())
+						GROUP BY H.usuarioId 
+						HAVING	COUNT(P.playListId) > 30					
+						)		
+GROUP BY U.usuarioId, U.usuarioNombre
+HAVING	COUNT(P.playListId) > 3 AND
+		COUNT(DISTINCT AR.artistaId) < 20
 
-
-
+GO
 -- ##
 -- E. Devolver el nombre de los usuarios 
 -- que hayan escuchado temas de todos los álbumes de ‘Jaime Roos’.
 -- ##
+
+SELECT U.usuarioNombre
+FROM usuario U, historialCancion HC, cancion C, album AL
+WHERE	U.usuarioId = HC.usuarioId AND
+		HC.cancionId = C.cancionId AND
+		C.albumId = AL.albumId AND 
+		AL.albumId IN (	SELECT	AL.albumId
+						FROM	album AL, artista AR
+						WHERE	AL.artistaId = AR.artistaId AND
+								AR.artistaNombre = 'Jaime Roos'
+						)
+GO
 
 -- ##
 -- F. Eliminar los artistas que no tengan temas en playlists 
@@ -129,7 +157,7 @@ WHERE
 	) 
 
 
-
+GO
 
 -- ##
 -- Vistas
@@ -149,7 +177,7 @@ AS (
 	GROUP BY p.planNombre
 	HAVING count(u.planId) > 10
 );
-
+GO
 
 -- ##
 -- B. Crear una vista, ‘promedioReproduccionesUsuariosMesAnio’ que muestra para cada mes, 
@@ -166,5 +194,6 @@ AS (
 	FROM historialCancion hc
 	GROUP BY YEAR(hc.historialCancionFecha), MONTH(hc.historialCancionFecha)
 );
+GO
 
 
