@@ -1,12 +1,12 @@
 -- CREACION DE LA BASE DE DATOS CON RESTRICCIONES
 --
 
---DROP DATABASE OBLIGATORIOBD2
+DROP DATABASE OBLIGATORIOBD2
 
---CREATE DATABASE OBLIGATORIOBD2
---GO
+CREATE DATABASE OBLIGATORIOBD2
+GO
 
-Use OBLIGATORIOBD2
+USE OBLIGATORIOBD2
 GO
 
 /*
@@ -96,7 +96,7 @@ Create Table EQUIPOS (
 	ZonaId int NOT NULL,
 	PRIMARY KEY (EqpIP),
 	FOREIGN KEY (ZonaId) REFERENCES ZONAS(ZonaId),
-	CHECK (EqpIP LIKE '[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}'),
+	CHECK (EqpIP LIKE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'),
 	CHECK (EqpTipo = 'Terminal' OR EqpTipo = 'Servidor' OR EqpTipo = 'Tablet' OR EqpTipo = 'Impresora')
 	)
 GO
@@ -200,64 +200,49 @@ Create Table RACI (
 	PRIMARY KEY (RaciTarId, RaciUsuario, RaciRol),
 	CHECK (RaciRol = 'R' OR RaciRol = 'A' OR RaciRol = 'C' OR RaciRol = 'I')
 	)
-GO
 
-	
+
 -- Indices necesarios
-USE OBLIGATORIO1BD2
+USE OBLIGATORIOBD2
 GO
 --
 -- Indices por ser clave foranea.
 --
--- Tabla album columna artistaId
-CREATE INDEX ind_albArtistaId ON album(artistaId) 
+-- Tabla EQUIPOS columna ZonaId
+CREATE INDEX ind_eqZonaId ON EQUIPOS(ZonaId) 
 
--- Tabla cancion columna albumId
-CREATE INDEX ind_canAlbumId ON cancion(albumID) 
+-- Tabla PERMISOSCNX columna ZonaId
+CREATE INDEX ind_permZonaId ON PERMISOSCNX(ZonaId)
 
--- Tabla usuario columna planId
-CREATE INDEX ind_usuPlanId ON usuario(planId) 
+-- Tabla CTRLCONEXIONES columnas Usuario y TarId
+CREATE INDEX ind_ctrlconUsuario ON CTRLCONEXIONES(Usuario) 
 
--- Tabla compra columnas usuarioId y planId
-CREATE INDEX ind_comUsuarioId ON compra(usuarioId) 
+CREATE INDEX ind_ctrlconTarId ON CTRLCONEXIONES(TarId) 
 
-CREATE INDEX ind_comPlanId ON compra(planId) 
+-- Tabla CTRLVULNERABILIDADES columnas ScnHerr con ScnVulnNom, TarId y ZonaId
+CREATE INDEX ind_ctrlvulScnHerrScnVulnNom ON CTRLVULNERABILIDADES(ScnHerr, ScnVulnNom) 
 
--- Tabla playList columna usuarioId
-CREATE INDEX ind_plaUsuarioId ON playList(usuarioId) 
+CREATE INDEX ind_ctrlvulTarId ON CTRLVULNERABILIDADES(TarId) 
 
--- Tabla playListCancion columna cancionId
-CREATE INDEX ind_plaCanCancionId ON playListCancion(cancionId) 
-
--- Tabla historialCancion columna usuarioId y cancionId 
-CREATE INDEX ind_hisUsuarioId ON historialCancion(usuarioId) 
-
-CREATE INDEX ind_hisCancionId ON historialCancion(cancionId) 
+CREATE INDEX ind_ctrlvulZonaId ON CTRLVULNERABILIDADES(ZonaId) 
 
 --
 -- Indices comunmente utilizados en consultas.
 --
--- Tabla artista columna artistaNombre
-CREATE INDEX ind_artistaNombre ON artista(artistaNombre) 
+-- Tabla CTRLVULNERABILIDADES columna VulnCriticidad
+CREATE INDEX ind_ctrlvulVulnCriticidad ON CTRLVULNERABILIDADES(VulnCriticidad) 
 
--- Tabla album columna albumNombre
-CREATE INDEX ind_albumNombre ON album(albumNombre) 
+-- Tabla ZONAS columna ZonaNom
+CREATE INDEX ind_zonZonaNom ON ZONAS(ZonaNom) 
 
--- Tabla cancion columna cancionNombre
-CREATE INDEX ind_cancionNombre ON cancion(cancionNombre) 
+-- Tabla CTRLCONEXIONES columna CnxPermitida
+CREATE INDEX ind_ctrlconCnxPermitida ON CTRLCONEXIONES(CnxPermitida) 
 
--- Tabla plan columna planNombre
-CREATE INDEX ind_planNombre ON plan1(planNombre) 
+-- Tabla TAREAS columna TarEstado
+CREATE INDEX ind_tarTarEstado ON TAREAS(TarEstado) 
 
--- Tabla usuario columna usuarioNombre
-CREATE INDEX ind_usuarioNombre ON usuario(usuarioNombre) 
+-- Tabla TAREAS columna TarHrsAcum
+CREATE INDEX ind_tarTarHrsAcum ON TAREAS(TarHrsAcum) 
 
--- Tabla playList columna playListNombre
-CREATE INDEX ind_playListNombre ON playList(playListNombre) 
-	
-
-
-
-
-
-
+-- Tabla CTRLCONEXIONES columna CnxFchHr
+CREATE INDEX ind_ctrlconCnxFchHr ON CTRLCONEXIONES(CnxFchHr) 
