@@ -1,0 +1,12 @@
+--USUARIOS:
+/*#Controlar que haya un espacio entre el nombre y el apellido
+en UsuNomApp (no es obligatorio el campo)
+*/
+
+--EQUIPOS
+/*
+#Controlar la ip que tenga 4 secuencias de 3 dígitos, cada secuencia puede tomar valores entre 0 y 255, y
+están separadas por un punto
+
+#Controlar que contenga los prefijos de los nombres segun su Tipo (o agregarlos al insertar)
+*/
