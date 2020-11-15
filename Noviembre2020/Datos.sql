@@ -1,203 +1,550 @@
--- CREACION DE LA BASE DE DATOS CON RESTRICCIONES
+--
+-- CARGA DE DATOS DE PRUEBA
 --
 
---DROP DATABASE OBLIGATORIOBD2
 
---CREATE DATABASE OBLIGATORIOBD2
---GO
-
-Use OBLIGATORIOBD2
+USE OBLIGATORIO1BD2
 GO
+INSERT INTO artista (artistaId, artistaNombre, artistaFoto, esNacional, artistaCantReproducciones) VALUES 
+(1, 'Martín Gonzalez', 'ZR72wx4WWR3OVLTOeOlt', 1, 75142343),
+(2, 'Kaya Forbes', 'o4F2a89903BG57DJzR4t', 0, 18000470),
+(3, 'Manal Mcfadden', '0DbhkbcBFSBh09QXN5BW', 0, 87540800),
+(4, 'Barnaby Franco', 'MPLtzAVCOnA4bLGp5wTw', 0, 54567265 ),
+(5, 'Luther Salinas', 'slDYLlDkDQlqkqZ1jSb7', 0, 76854004),
+(6, 'Ianis Barrett', 'O8rAVtJIlgBspqbMwjC6', 1, 50623556),
+(7, 'Kira Fisher', 'dfg1aibGk6rErK0dkWkS', 1, 33361629),
+(8, 'Keyaan Woolley', 'zycJxbvPuaUy4EKdE07x', 0, 78535448 ),
+(9, 'Nichole Evans', '9HtG2cmF2oFQ2SV7e3Ol', 1, 50177325),
+(10, 'Ariana Cameron', 'tzAZZOhDOk1klLW4WsII', 0, 35137551),
+(11, 'Fahim Devine', '2CgGmqrF8SibHvQ2q1Tq', 1, 53215845),
+(12, 'Kade Bouvet', 'SIwSGZc1IMaBubGCqUtu', 1, 91105076 ),
+(13, 'Adelina Mata', 'wNV9qhuQn2txdzKgIhtJ', 0, 91957817),
+(14, 'Chantel Trujillo', '9ucjpZS1Nui2cPGfKWVC', 0, 55857208),
+(15, 'Loui Calvert', 'KDPonMB6wOSCym4vUVJ3', 0, 99150030),
+(16, 'Nichole Busby', 'A5OkIazXdr0GVfdehF6Y', 1, 48048289 ),
+(17, 'Ayyub Todd', 'X213l3PYz8bq55IHjO4a', 0, 92052444),
+(18, 'Nichole Busby', 'QIlpaO1AhIVj1iovZZpx', 1, 13548373 ),
+(19, 'Nichole Radjman', 'D2SvmMWCDPfKse3s3zyZ', 1, 49875077 ),
+(20, 'Chloe White', 'peIgwim9p6E8mjvcfy2l', 1, 18184518 ),
+(21, 'Ariana Gonzalez', '39xutQJvPYQNcvSpD8MV', 1, 34373795 ),
+(22, 'Catalina Rosch', 'tVttS0oHUW4SnABTiqaN', 1, 76959759 ),
+(23, 'Sarme Zend', 'NxmmipjfrCWjAnX73CPH', 1, 67072301 ),
+(24, 'Wardrey Cameron', 'DFEWd6Hwv9ich4Lm9PBI', 1, 69335322 );
 
-/*
-TAREAS (TarId, TarEstado, TarHrsAcum, TarFchIni, TarFchFin, TarFchFPrev,
-TarDescrip)
-En esta tabla se registran las Tareas que realiza el área de Tecnología. Las tareas se identifican por
-un autonumerico, y tienen un Estado que puede tomar valores: EN ESPERA, EN DESARROLLO,
-RESUELTO, CANCELADA. También se guarda la cantidad de horas de trabajo acumuladas en
-atención a cada tarea, así como la fecha de inicio, la fecha de finalización y la fecha de finalización
-prevista.
-Finalmente, todas las tareas tienen una descripción.
-Excepto el campo fecha de finalización todos los demás son obligatorios.
-Debe controlarse que la fecha de inicio no sea mayor a la fecha prevista de finalización
-Se considera que la cantidad de horas de trabajo acumuladas debe ser mayor a 1 hr, debido que la
-sola gestión inicial lleva por lo menos ese tiempo.
 
-*/
-Create Table TAREAS (
-	TarId int identity(1,1)	not null, 
-	TarEstado varchar(15) NOT NULL, 
-	TarHrsAcum int NOT NULL, 
-	TarFchIni date NOT NULL, 
-	TarFchFin date, 
-	TarFchFPrev date NOT NULL, 
-	TarDescrip varchar(200) NOT NULL,
-	PRIMARY KEY (TarId),
-	CHECK (TarEstado = 'EN ESPERA' OR TarEstado = 'EN DESARROLLO' OR TarEstado = 'RESUELTO' OR TarEstado = 'CANCELADA'),
-	CHECK (TarHrsAcum > 1),
-	CHECK (TarFchIni < TarFchFPrev)
-	 )
-GO
+INSERT INTO album (albumId, albumNombre, artistaId, albumCantReproducciones) VALUES 
+('1', 'Doctor in the house', 1, 36561283),
+('2', 'Total destruction', 2, 37112054),
+('3', 'Highest difficulty', 3, 90796346),
+('4', 'Final straw', 4, 82490877),
+('5', 'Easy doesnt do it', 5, 97753204),
+('6', 'Cookie cutter', 6, 43657484),
+('7', 'Chip off the old block', 7, 23398901),
+('8', 'Concept art', 8, 88590389),
+('9', 'Love life', 9, 31594295),
+('10', 'Cat napped', 10, 78180482),
+('11', 'No basis', 11, 49628327),
+('12', 'Lets do this', 12, 70375253),
+('13', 'Methodical madness', 13, 54108525),
+('14', 'Cold shoulder', 14, 91085352),
+('15', 'Damage control', 15, 30180882),
+('16', 'Live and learn', 16, 21938892),
+('17', 'Cat napped', 17, 72374275),
+('18', 'Death of roses', 11, 55327757),
+('19', 'Bittersweet', 1, 68711886),
+('20', 'Birthday suit', 12, 40197931),
+('21', 'Take cover', 15, 55836971),
+('22', 'Eye for an eye', 15, 32724363),
+('23', 'Dark matters', 15, 20946534),
+('24', 'March of ants', 4, 12200794),
+('25', 'Rocket science', 7, 30523900),
+('26', 'Rocket to the moon', 7, 8468156);
 
-/*
-ZONAS (ZonaId, ZonaNom, ZonaDescrip)
-Registra las Zonas que conforman la Red de la Empresa. Las zonas se identifican por un Numero. El
-nombre de las zonas es un dato obligatorio y no existen dos zonas con igual nombre.
-Al momento de ingresar los datos suponer que hay una zona por cada área de la Empresa, y una
-zona llamada DMZ donde están los equipos que conforman la Red Perimetral.
-*/
-Create Table ZONAS (
-	ZonaId int not null, 
-	ZonaNom varchar(50) NOT NULL UNIQUE,
-	ZonaDescrip varchar(100),
-	PRIMARY KEY (ZonaId)
-	)
-GO
 
-/*
-USUARIOS (Usuario, UsuPsw, UsuNomApp, UsuMail)
-Registra los Usuarios de Red de la Empresa los cuales se identifican mediante el campo usuario que
-es de hasta 50 caracteres. También se registra la clave usuPsw, dato obligatorio, el cual debe tener
-un máximo de 100 caracteres, y deben contener por lo menos un digito.
-Finalmente se guardan, si se conocen, los datos de nombre y apellido UsuNomApp, así como el mail
-UsuMail.
+INSERT INTO cancion (cancionNombre, albumId, cancionCantReproducciones) VALUES 
+('Like a Rancid Stick', '21', 83550416),
+('Stand By Matt', '1', 67720747),
+('They Are Night Sausages! They ', '13', 77971910),
+('Here Without Matt', '16', 109443167),
+('Skegness on My Mind', '6', 94837220),
+('Youve Lost That Rancid Stick', '15', 99449080),
+('Youve Lost That Rancid Feeling', '13', 92162245),
+('Dont Smile', '7', 71911872),
+('Smells Like a Rancid Stick', '12', 51346993),
+('Lets Run Away to Skegness and ', '5', 70246415),
+('Another Stick in the Wall', '23', 19034437),
+('Ring of Stick', '1', 74944393),
+('Stairway to Sausages', '10', 81494366),
+('A Song for Matt', '25', 66536218),
+('Hotel Skegness', '8', 89845775),
+('Where Have All the Sausages Go', '5', 21729465),
+('House of the Rancid Stick', '6', 77185336),
+('Late Night Stick', '5', 102590144),
+('Just Another a Rancid Stick', '18', 34568350),
+('Sausages in My Stick', '10', 13574592),
+('Rhythm of the Stick', '12', 41792507),
+('Bridge Over Rancid Sausages', '8', 69286061),
+('Stick Boogie', '4', 81063643),
+('Have You Met Matt?', '2', 37021627),
+('Smile? I Jolly Well Wont Smile', '13', 96876688),
+('Stand by Your Sausages', '12', 92491326),
+('Many Pieces Of Large Fuzzy Sau', '10', 103823763),
+('Amazing Matt', '4', 54532900),
+('Another Year of Sausages', '6', 85545445),
+('Like Rancid Sausages', '21', 45211931),
+('You Dont Send Me Rancid Sausag', '20', 72669980),
+('Nice Weather For Sausages', '20', 55388523),
+('(I Cant Get No) Rancid Sausage', '18', 35339252),
+('When Rancid Sausages Cry', '15', 82648136),
+('When Rancid Sausages Smile', '14', 76799136),
+('Whole Lotta Sausages', '15', 48435526),
+('Stairway to Stick', '17', 68535830),
+('Matts Rancid Sausages Club Ban', '12', 94297231),
+('Smile This Way', '6', 24568599),
+('The Stick Where Your Heart Sho', '10', 103329383),
+('Matt Eat My Rancid Sausages in', '22', 72763358),
+('Give Me Your Sausages', '16', 92244031),
+('Early Morning Smile', '16', 44410352),
+('Stick Fields Forever', '1', 71908641),
+('We Shall Smile', '11', 69813122),
+('Every Stick You Take', '15', 79779747),
+('Rancid Blues', '16', 37264874),
+('It Hurts To Shoot Sausages Fro', '11', 46343200),
+('Theres A Good Reason Sausages ', '21', 45542255),
+('Smile Forever', '25', 69489854),
+('My Stick Wants To Kill Your Ma', '3', 55925407),
+('Truly Madly Rancid', '9', 35696908),
+('Your Cheatin Stick', '24', 28757198),
+('Behind Rancid Sausages', '24', 44951569),
+('At Least Give Me My Sausages B', '6', 11683254),
+('Welcome to Rancid Skegness', '7', 67545084),
+('Gonna Make You Smile', '11', 31968501),
+('Straight Outta Skegness', '5', 85181579),
+('Matts Waiting', '24', 33664726),
+('I plead Stick', '20', 46287610),
+('The Number of your Stick', '16', 91907572),
+('You Think I Aint Worth A Stick', '16', 95974644),
+('She Thinks Sticks Sexy', '6', 31250375),
+('Stick I Have Become', '7', 24798197),
+('Skegness is Your Land', '2', 72696028),
+('Somewhere Over the Stick', '3', 17273677),
+('Rancid Sausages Forever', '9', 34967108),
+('Smells Like Rancid Sausages', '9', 71050443),
+('Stick Autopsy', '1', 19558252),
+('Great Balls of Sausages', '17', 100711960),
+('This Is A Sight We Had One Day', '14', 16243838),
+('Early Morning Stick', '14', 36361354),
+('Careful With That Stick', '5', 75967784),
+('Smile, Smile, Smile!', '13', 76468096),
+('Like a Stick', '17', 11421290),
+('Livin on a Stick', '4', 56892893),
+('Sausages Sound Better With You', '19', 102118194),
+('Stand by Your Stick', '7', 53574337),
+('Enter Matt', '6', 100406569),
+('Good Stick', '11', 45052224),
+('Takin the Stick Train', '5', 57609019),
+('Cant Take My Sausages Off You', '16', 22818888),
+('Goody Two Sausages', '1', 15363143),
+('Baby, I Need Your Sausages', '24', 52431264),
+('My Stick Sounds Better With Yo', '14', 36237427),
+('The Girl From Skegness', '11', 56382859),
+('You Cant Smile Through A Buffa', '7', 79826835),
+('Dont Eat Sausages Off The Side', '8', 10926160),
+('Independent Stick', '9', 65786208),
+('Mad to Smile', '2', 23352436),
+('I Smile in Your Arms', '24', 103638486),
+('Stick Deep, Sausages High', '25', 83677324),
+('Great Sausages of Stick', '4', 10698752),
+('Four Rancid Sausages', '23', 65246932),
+('Mammas Dont Let Your Babies Gr', '23', 84083872),
+('Smile - It is the Most Fun a G', '16', 82470660),
+('Matt Broke My Heart At Skegnes', '5', 40531575),
+('In Stick We Trust', '7', 100703329),
+('Yearning for Rancid Sausages', '8', 88631535),
+('Stairway to Hell', '7', 98765414),
+('Stairway to Skegness', '6', 33240577);
 
-*/
-Create Table USUARIOS (
-	Usuario varchar(50) not null, 
-	UsuPsw varchar(100) NOT NULL, /*Era varchar(200)*/
-	UsuNomApp varchar(200),
-	UsuMail varchar(200),
-	CHECK (UsuPsw LIKE '%[0-9]%'),
-	PRIMARY KEY (Usuario)
-	) 
-GO
 
-/*
-EQUIPOS (EqpIP, EqpNom, EqpTipo, EqpSO, ZonaId)
-Registra el equipamiento informático de la empresa, los cuales se identifican por su IP (EqpIP), la
-cual está formado por 4 secuencias de 3 dígitos, cada secuencia puede tomar valores entre 0 y 255, y
-están separadas por un punto, ejemplo 192.168.045.123
-De los equipos se registra su nombre EqpNom que no puede repetirse, el tipo de equipo EqpTipo que
-puede tomar los valores: Terminal, Servidor, Tablet o Impresora, y la zona donde se encuentra
-ZonaID.
-Los nombres de los equipos deben tener por prefijo:
-WKS si son Terminales de Trabajo
-SRV si son Servidores
-IMP si son Impresoras
-TBL si son Tablets
-Todos los datos de esta tabla son requeridos excepto el Sistema Operativo 
-*/
-Create Table EQUIPOS (
-	EqpIP char(15) not null,  
-	EqpNom varchar(50) NOT NULL UNIQUE, 
-	EqpTipo varchar(10) NOT NULL, 
-	EqpSO  varchar(10), 
-	ZonaId int NOT NULL,
-	PRIMARY KEY (EqpIP),
-	FOREIGN KEY (ZonaId) REFERENCES ZONAS(ZonaId),
-	CHECK (EqpIP LIKE '[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}'),
-	CHECK (EqpTipo = 'Terminal' OR EqpTipo = 'Servidor' OR EqpTipo = 'Tablet' OR EqpTipo = 'Impresora')
-	)
-GO
+INSERT INTO plan1(planNombre, planCosto, esPlanVigente, esRecurrente) VALUES
+('familiar', 20.00, 1, 1),
+('individual', 5.9, 1, 0),
+('duo', 9.50, 0, 1),
+('trio', 11.00, 0, 0);
 
-/*
-PERMISOSCNX (Usuario, ZonaId, Habilitado)
-En esta tabla se indica las zonas a las que puede acceder cada usuario. El campo Habilitado puede
-tomar valores SI o NO según dicho permiso este habilitado o no, por defecto las conexiones no están
-habilitadas
-*/
-Create Table PERMISOSCNX (
-	Usuario varchar(50) NOT NULL, 
-	ZonaId int NOT NULL, 
-	Habilitado char(2) NOT NULL,
-	PRIMARY KEY (Usuario, ZonaId),
-	FOREIGN KEY (ZonaId) REFERENCES ZONAS(ZonaId),
-	CHECK (Habilitado = 'SI' OR Habilitado = 'NO')
-	)
-GO
 
-/*
-CTRLCONEXIONES (CnxId, Usuario, EqpIP, CnxFchHr, CnxPermitida, TarID)
-En esta tabla se registran todos los intentos de conexión de los usuarios en los equipos. Cada intento
-de conexión se identifica por un auto numérico, y se guarda la fecha hora en que ocurrió CnxFchHr,
-dato obligatorio.
-Si el usuario está intentando conectarse a una zona para la cual tiene permiso entonces se permite la
-conexión, si una conexión fue permitida o no se registra en el campo CnxPermitida
-En el campo TarID indica la tarea que analizara el caso, en caso de ser necesario.
-*/
-Create Table CTRLCONEXIONES (
-	CnxId int identity(1,1) not null, 
-	Usuario varchar(50) , 
-	EqpIP char(15), 
-	CnxFchHr datetime NOT NULL, 
-	CnxPermitida bit, 
-	TarID int,
-	FOREIGN KEY (Usuario) REFERENCES USUARIOS,
-	FOREIGN KEY (TarId) REFERENCES TAREAS,
-	PRIMARY KEY (CnxId))
-GO
-/*
-ESCANEOS (ScnHerr, ScnVulnNom, ScnDescrip)
-En esta tabla se registran las herramientas usadas para realizar escaneos de vulnerabilidades y las
-vulnerabilidades que éstas son capaces de detectar. scnHerr es el nombre de la herramienta y
-ScnVulnNom es el nombre de vulnerabilidad que es capaz de detectar. También se guarda una
-descripción. Ejemplo (“McAfee”, “Virus”, “Escaneo para detección de virus”), (“Crowdstrike”,
-“malware”, “Escaneo para detección de malware”), etc.
+INSERT INTO usuario (usuarioId, usuarioNombre, usuarioMail, fechaCreacion, planId, fechaPlanActivoDesde) VALUES
+('p1', 'Pepe Perez', 'pepelarana@gmail.com', '20190108', '2','20190826'),
+('p2', 'Perez Pepe', 'ranaelpepe@gmail.com', '20190108', '1','20190728'),
+('tiffanymyers', 'Tiffany Myers', 'tiffanymyers@gmail.com', '20091008', '1','20150126'),
+('marcelinamoody', 'Marcelina Moody', 'marcelinamoody@gmail.com', '20141109', '3','20181203'),
+('devontemathis', 'Devonte Mathis', 'devontemathis@gmail.com', '20020216', '4','20091127'),
+('bradenabbott', 'Braden Abbott', 'bradenabbott@gmail.com', '20100712', '2','20141106'),
+('eviemaecrane', 'EvieMae Crane', 'eviemaecrane@gmail.com', '20011211', '1','20030825'),
+('balrajsimons', 'Balraj Simons', 'balrajsimons@gmail.com', '20020709', '1','20170418'),
+('derryspencer', 'Derry Spencer', 'derryspencer@gmail.com', '20190408', '1','20190626'),
+('asmaquintero', 'Asma Quintero', 'asmaquintero@gmail.com', '20050605', '2','20060222'),
+('khushismith', 'Khushi Smith', 'khushismith@gmail.com', '20010816', '4','20020912'),
+('santiagobowes', 'Santiago Bowes', 'santiagobowes@gmail.com', '20190424', '2','20190816'),
+('emileerogers', 'Emilee Rogers', 'emileerogers@gmail.com', '20030626', '3','20170616'),
+('delorescartwright', 'Delores Cartwright', 'delorescartwright@gmail.com', '20030916', '1','20050525'),
+('ammaarenglish', 'Ammaar English', 'ammaarenglish@gmail.com', '20170401', '1','20190114'),
+('nabilbentley', 'Nabil Bentley', 'nabilbentley@gmail.com', '20120706', '4','20160407'),
+('dukelam', 'Duke Lam', 'dukelam@gmail.com', '20170818', '4','20190812'),
+('rickhurley', 'Rick Hurley', 'rickhurley@gmail.com', '20080704', '3','20090825'),
+('tanialeon', 'Tania Leon', 'tanialeon@gmail.com', '20020512', '1','20080805'),
+('marisagray', 'Marisa Gray', 'marisagray@gmail.com', '20100601', '3','20181104'),
+('mateoventura', 'Mateo Ventura', 'mateoventura@gmail.com', '20130512', '2','20160726'),
+('serenityguzman', 'Serenity Guzman', 'serenityguzman@gmail.com', '20060926', '4','20081204'),
+('anumcotton', 'Anum Cotton', 'anumcotton@gmail.com', '20020917', '3','20060612'),
+('abucook', 'Abu Cook', 'abucook@gmail.com', '20110913', '1','20161114'),
+('eoingaines', 'Eoin Gaines', 'eoingaines@gmail.com', '20111206', '2','20170110'),
+('massimowiley', 'Massimo Wiley', 'massimowiley@gmail.com', '20081203', '3','20190803'),
+('jezcosta', 'Jez Costa', 'jezcosta@gmail.com', '20031226', '2','20080628'),
+('shanaefrost', 'Shanae Frost', 'shanaefrost@gmail.com', '20080814', '2','20190625'),
+('cohanmcphee', 'Cohan Mcphee', 'cohanmcphee@gmail.com', '20150929', '3','20170304'),
+('martynholder', 'Martyn Holder', 'martynholder@gmail.com', '20080408', '1','20100302'),
+('ieuanbyrd', 'Ieuan Byrd', 'ieuanbyrd@gmail.com', '20080318', '4','20130121'),
+('coltonneville', 'Colton Neville', 'coltonneville@gmail.com', '20050813', '4','20130830'),
+('victornieves', 'Victor Nieves', 'victornieves@gmail.com', '20070801', '2','20090905'),
+('sheridanwharton', 'Sheridan Wharton', 'sheridanwharton@gmail.com', '20060123', '3','20081030'),
+('saimasantana', 'Saima Santana', 'saimasantana@gmail.com', '20140315', '4','20170213'),
+('lillianwoods', 'Lillian Woods', 'lillianwoods@gmail.com', '20061014', '3','20100113'),
+('louisacross', 'Louisa Cross', 'louisacross@gmail.com', '20020207', '1','20050322'),
+('riyaroach', 'Riya Roach', 'riyaroach@gmail.com', '20161102', '1','20190219'),
+('sidneyclark', 'Sidney Clark', 'sidneyclark@gmail.com', '20120912', '2','20140207'),
+('liahowell', 'Lia Howell', 'liahowell@gmail.com', '20010417', '2','20011005'),
+('sarahjaneturnbull', 'SarahJane Turnbull', 'sarahjaneturnbull@gmail.com', '20151218', '1','20180314'),
+('sydneypaine', 'Sydney Paine', 'sydneypaine@gmail.com', '20150610', '3','20170919'),
+('adrianawolfe', 'Adriana Wolfe', 'adrianawolfe@gmail.com', '20150509', '3','20160512'),
+('lynnlloyd', 'Lynn Lloyd', 'lynnlloyd@gmail.com', '20151122', '4','20161126'),
+('shanipowell', 'Shani Powell', 'shanipowell@gmail.com', '20090819', '4','20190120'),
+('bretsnow', 'Bret Snow', 'bretsnow@gmail.com', '20111228', '2','20140808'),
+('leighawilcox', 'Leigha Wilcox', 'leighawilcox@gmail.com', '20161119', '2','20170325'),
+('kristahodge', 'Krista Hodge', 'kristahodge@gmail.com', '20121017', '4','20130725'),
+('avnikent', 'Avni Kent', 'avnikent@gmail.com', '20100425', '1','20141129'),
+('yvettemaguire', 'Yvette Maguire', 'yvettemaguire@gmail.com', '20131128', '1','20140126'),
+('christosaldred', 'Christos Aldred', 'christosaldred@gmail.com', '20111230', '1','20180310'),
+('maredtraynor', 'Mared Traynor', 'maredtraynor@gmail.com', '20140304', '3','20170604'),
+('liliwheatley', 'Lili Wheatley', 'liliwheatley@gmail.com', '20040725', '4','20110815'),
+('dollyshaffer', 'Dolly Shaffer', 'dollyshaffer@gmail.com', '20180625', '2','20180713'),
+('ruebenduncan', 'Rueben Duncan', 'ruebenduncan@gmail.com', '20070923', '3','20160320'),
+('nathaliehayward', 'Nathalie Hayward', 'nathaliehayward@gmail.com', '20061231', '3','20161127'),
+('jazminepayne', 'Jazmine Payne', 'jazminepayne@gmail.com', '20080129', '3','20150823'),
+('emrepineda', 'Emre Pineda', 'emrepineda@gmail.com', '20100124', '3','20171223'),
+('merlinbarker', 'Merlin Barker', 'merlinbarker@gmail.com', '20150217', '1','20150729'),
+('jethrorussell', 'Jethro Russell', 'jethrorussell@gmail.com', '20030525', '3','20061005'),
+('nikhilbyers', 'Nikhil Byers', 'nikhilbyers@gmail.com', '20160323', '2','20181126'),
+('kitrandall', 'Kit Randall', 'kitrandall@gmail.com', '20130529', '4','20150509'),
+('calumcrosby', 'Calum Crosby', 'calumcrosby@gmail.com', '20110531', '4','20110912'),
+('stephenyang', 'Stephen Yang', 'stephenyang@gmail.com', '20121228', '3','20151221'),
+('griffahmed', 'Griff Ahmed', 'griffahmed@gmail.com', '20070528', '1','20150722'),
+('shaynehinton', 'Shayne Hinton', 'shaynehinton@gmail.com', '20180512', '2','20181022'),
+('amandeepalford', 'Amandeep Alford', 'amandeepalford@gmail.com', '20180604', '3','20190531'),
+('melodymcbride', 'Melody Mcbride', 'melodymcbride@gmail.com', '20100520', '4','20120511'),
+('martynarodrigues', 'Martyna Rodrigues', 'martynarodrigues@gmail.com', '20170309', '4','20180207'),
+('jordioquinn', 'Jordi OQuinn', 'jordioquinn@gmail.com', '20030201', '3','20161016'),
+('tasnimrobbins', 'Tasnim Robbins', 'tasnimrobbins@gmail.com', '20150701', '1','20190201'),
+('shanicebaxter', 'Shanice Baxter', 'shanicebaxter@gmail.com', '20120716', '2','20190910'),
+('jamieleearellano', 'JamieLee Arellano', 'jamieleearellano@gmail.com', '20131208', '1','20160223'),
+('ivobrowne', 'Ivo Browne', 'ivobrowne@gmail.com', '20081113', '1','20180521'),
+('corbanboone', 'Corban Boone', 'corbanboone@gmail.com', '20161103', '1','20181010'),
+('bradleywilliamson', 'Bradley Williamson', 'bradleywilliamson@gmail.com', '20190612', '1','20190721'),
+('manonalexander', 'Manon Alexander', 'manonalexander@gmail.com', '20171001', '1','20180927'),
+('cathyworthington', 'Cathy Worthington', 'cathyworthington@gmail.com', '20171210', '3','20180621'),
+('joshuadodson', 'Joshua Dodson', 'joshuadodson@gmail.com', '20090812', '2','20151206'),
+('kristofermitchell', 'Kristofer Mitchell', 'kristofermitchell@gmail.com', '20170617', '4','20180516'),
+('nilelandry', 'Nile Landry', 'nilelandry@gmail.com', '20030828', '3','20100913'),
+('monicagilmour', 'Monica Gilmour', 'monicagilmour@gmail.com', '20161105', '3','20170111'),
+('kodyramos', 'Kody Ramos', 'kodyramos@gmail.com', '20110420', '4','20160715'),
+('scarlethendrix', 'Scarlet Hendrix', 'scarlethendrix@gmail.com', '20131031', '4','20190323'),
+('korbenrhodes', 'Korben Rhodes', 'korbenrhodes@gmail.com', '20011011', '2','20130503'),
+('simraconrad', 'Simra Conrad', 'simraconrad@gmail.com', '20140129', '1','20190414'),
+('brendasykes', 'Brenda Sykes', 'brendasykes@gmail.com', '20030401', '1','20030903'),
+('tahliaking', 'Tahlia King', 'tahliaking@gmail.com', '20140412', '1','20190516'),
+('kelisreyna', 'Kelis Reyna', 'kelisreyna@gmail.com', '20100910', '3','20130703'),
+('maddysnyder', 'Maddy Snyder', 'maddysnyder@gmail.com', '20010917', '1','20181113'),
+('johnathontyson', 'Johnathon Tyson', 'johnathontyson@gmail.com', '20001005', '1','20040820'),
+('munacurtis', 'Muna Curtis', 'munacurtis@gmail.com', '20001102', '4','20110709'),
+('elyshapope', 'Elysha Pope', 'elyshapope@gmail.com', '20040727', '2','20180518'),
+('kamronemery', 'Kamron Emery', 'kamronemery@gmail.com', '20011018', '1','20110309'),
+('brettfranco', 'Brett Franco', 'brettfranco@gmail.com', '20040603', '4','20070129'),
+('julesoliver', 'Jules Oliver', 'julesoliver@gmail.com', '20100507', '3','20190922'),
+('lenniehouston', 'Lennie Houston', 'lenniehouston@gmail.com', '20100812', '1','20180708'),
+('daanishgreene', 'Daanish Greene', 'daanishgreene@gmail.com', '20060418', '3','20180715'),
+('aasiyahsalinas', 'Aasiyah Salinas', 'aasiyahsalinas@gmail.com', '20150303', '2','20190817'),
+('alasdairsteele', 'Alasdair Steele', 'alasdairsteele@gmail.com', '20080520', '3','20110428'),
+('jordanleecampbell', 'JordanLee Campbell', 'jordanleecampbell@gmail.com', '20101116', '3','20140626'),
+('tyreesehansen', 'Tyreese Hansen', 'tyreesehansen@gmail.com', '20110523', '1','20160210');
 
-*/
+INSERT INTO compra (usuarioId, planId, fechaGenerada, fechaPaga) VALUES 
+('tiffanymyers', '2', '20090531', '20150722'),
+('marcelinamoody', '3', '20061123', '20081201'),
+('devontemathis', '2', '20010109', '20190116'),
+('bradenabbott', '2', '20141010', '20180812'),
+('eviemaecrane', '1', '20181025', '20190928'),
+('balrajsimons', '4', '20010907', '20151115'),
+('derryspencer', '1', '20010421', '20161216'),
+('asmaquintero', '3', '20190820', '20190906'),
+('khushismith', '2', '20090429', '20101126'),
+('santiagobowes', '2', '20190330', '20190915'),
+('emileerogers', '3', '20190323', '20190928'),
+('delorescartwright', '4', '20120118', '20121219'),
+('ammaarenglish', '4', '20010413', '20140205'),
+('nabilbentley', '3', '20140219', '20181025'),
+('dukelam', '4', '20060616', '20110509'),
+('rickhurley', '4', '20040327', '20090320'),
+('tanialeon', '4', '20120304', '20180228'),
+('marisagray', '3', '20190313', '20190330'),
+('mateoventura', '4', '20060322', '20060924'),
+('serenityguzman', '3', '20020504', '20161015'),
+('anumcotton', '4', '20090202', '20160721'),
+('abucook', '1', '20040508', '20060130'),
+('eoingaines', '1', '20031202', '20100918'),
+('massimowiley', '3', '20020210', '20021011'),
+('jezcosta', '3', '20010830', '20190718'),
+('shanaefrost', '3', '20150618', '20170412'),
+('cohanmcphee', '1', '20060317', '20061214'),
+('martynholder', '3', '20170614', '20180312'),
+('ieuanbyrd', '1', '20141106', '20191007'),
+('coltonneville', '4', '20150918', '20170709'),
+('victornieves', '2', '20110915', '20161003'),
+('sheridanwharton', '2', '20170623', '20190723'),
+('saimasantana', '4', '20090623', '20100816'),
+('lillianwoods', '1', '20041025', '20150224'),
+('louisacross', '3', '20190605', '20190918'),
+('riyaroach', '4', '20170722', '20190127'),
+('sidneyclark', '4', '20001108', '20081221'),
+('liahowell', '1', '20181001', '20190126'),
+('sarahjaneturnbull', '1', '20141010', '20160819'),
+('sydneypaine', '1', '20150311', '20171224'),
+('adrianawolfe', '3', '20070315', '20180327'),
+('lynnlloyd', '2', '20070607', '20130503'),
+('shanipowell', '1', '20110807', '20130807'),
+('bretsnow', '1', '20170129', '20190420'),
+('leighawilcox', '2', '20000203', '20150212'),
+('kristahodge', '4', '20070810', '20140103'),
+('avnikent', '3', '20190529', '20190910'),
+('yvettemaguire', '3', '20050926', '20181128'),
+('christosaldred', '2', '20140616', '20180111'),
+('maredtraynor', '4', '20080902', '20120531'),
+('liliwheatley', '3', '20170903', '20180406'),
+('dollyshaffer', '4', '20171015', '20190702'),
+('ruebenduncan', '3', '20031229', '20171014'),
+('nathaliehayward', '2', '20030929', '20051028'),
+('jazminepayne', '4', '20160616', '20190513'),
+('emrepineda', '1', '20060708', '20160730'),
+('merlinbarker', '1', '20190911', '20191007'),
+('jethrorussell', '4', '20040116', '20040710'),
+('nikhilbyers', '4', '20021017', '20100212'),
+('kitrandall', '2', '20060907', '20071007'),
+('calumcrosby', '2', '20120712', '20151221'),
+('stephenyang', '1', '20141120', '20190104'),
+('griffahmed', '2', '20030706', '20101207'),
+('shaynehinton', '2', '20090714', '20160518'),
+('amandeepalford', '2', '20090915', '20151104'),
+('melodymcbride', '2', '20070914', '20110820'),
+('martynarodrigues', '1', '20070711', '20091110'),
+('jordioquinn', '4', '20190217', '20190801'),
+('tasnimrobbins', '3', '20000512', '20070527'),
+('shanicebaxter', '1', '20190720', '20190802'),
+('jamieleearellano', '4', '20100330', '20101229'),
+('ivobrowne', '1', '20020514', '20120815'),
+('corbanboone', '2', '20080820', '20130216'),
+('bradleywilliamson', '4', '20050115', '20070313'),
+('manonalexander', '3', '20190529', '20190828'),
+('cathyworthington', '4', '20030802', '20140110'),
+('joshuadodson', '4', '20120423', '20121126'),
+('kristofermitchell', '4', '20010402', '20110708'),
+('nilelandry', '2', '20051013', '20100110'),
+('monicagilmour', '4', '20190309', '20190329'),
+('kodyramos', '4', '20071130', '20130514'),
+('scarlethendrix', '2', '20080606', '20170912'),
+('korbenrhodes', '4', '20091110', '20111030'),
+('simraconrad', '2', '20051221', '20190428'),
+('brendasykes', '3', '20061206', '20161028'),
+('tahliaking', '2', '20120701', '20191009'),
+('kelisreyna', '4', '20020122', '20160324'),
+('maddysnyder', '4', '20100408', '20190827'),
+('johnathontyson', '4', '20100814', '20170402'),
+('munacurtis', '4', '20020301', '20060920'),
+('elyshapope', '1', '20051110', '20180829'),
+('kamronemery', '2', '20150819', '20190508'),
+('brettfranco', '3', '20130511', '20160822'),
+('julesoliver', '2', '20010308', '20150525'),
+('lenniehouston', '2', '20150717', '20180524'),
+('daanishgreene', '2', '20190427', '20191018'),
+('aasiyahsalinas', '4', '20021209', '20160502'),
+('alasdairsteele', '3', '20020116', '20151225'),
+('jordanleecampbell', '2', '20070911', '20151211'),
+('tyreesehansen', '4', '20180605', '20180623');
 
-Create Table ESCANEOS (
-	ScnHerr varchar(100) NOT NULL, 
-	ScnVulnNom varchar(100) NOT NULL, 
-	ScnDescrip varchar(200),
-	PRIMARY KEY (ScnHerr, ScnVulnNom)
-	)
-GO
 
-/*
-CTRLVULNERABILIDADES (ScnHerr, ScnVulnNom, ZonaId, VulnFchScanO,
-VulnFchScanU, VulnCriticidad, TarID)
-En esta tabla se registran las vulnerabilidades detectadas por los escaneos. Estas vulnerabilidades se
-identifican con la herramienta y el nombre de la vulnerabilidad, la zona en la que se detecto la
-vulnerabilidad y la fecha en que se detecto.
-Una vulnerabilidad se mantiene abierta mientras siga siendo detectada registrándose en el campo
-VulnFchHScanU la fecha de ultimo escaneo que la detecto, y si hay una tarea que este analizando
-esta situación esta es indicada en el campo TarID
-Una vez que una vulnerabilidad es resuelta, es decir la tarea que la estaba analizando la resolvió, si
-vuelve a aparecer se trata como una nueva vulnerabilidad, es decir un nuevo registro en esta tabla
-Finalmente se registra la criticidad de cada vulnerabilidad detectada, la que puede tomar los valores:
-BAJA, MEDIA, ALTA
-*/
-create table CTRLVULNERABILIDADES (
-	ScnHerr varchar(100) NOT NULL, 
-	ScnVulnNom varchar(100) NOT NULL, 
-	ZonaId int NOT NULL, 
-	VulnFchScanO date NOT NULL, 
-	VulnFchScanU date, 
-	VulnCriticidad varchar(5),
-	TarID int,
-	PRIMARY KEY (ScnHerr, ScnVulnNom, ZonaId, VulnFchScanO),
-	FOREIGN KEY (ScnHerr, ScnVulnNom) REFERENCES ESCANEOS,
-	FOREIGN KEY (TarId) REFERENCES TAREAS,
-	FOREIGN KEY (ZonaId) REFERENCES ZONAS,
-	CHECK (VulnCriticidad = 'BAJA' OR VulnCriticidad = 'MEDIA' OR VulnCriticidad = 'ALTA') 
-	)
-GO
+INSERT INTO playList(playListNombre,usuarioId,playListFechaCreacion,esPlayListCurada) VALUES
+('Pepe1 Playlist5','p1','20190213',0),
+('Pepe1 Playlist2','p1','20190213',0),
+('Pepe1 Playlist3','p1','20190213',0),
+('Pepe1 Playlist4','p1','20190213',0),
+('Pepe1 Playlist1','p1','20190213',0),
+('Pepe2 Playlist','p2','20190206',0),
+('Acoustic Blues','shanipowell','20000113',0),
+('African Blues','cathyworthington','20030706',1),
+('Blues Rock','corbanboone','20020531',0),
+('Blues Shouter','rickhurley','20050426',1),
+('British Blues','coltonneville','20040204',0),
+('Canadian Blues','sarahjaneturnbull','20070319',0),
+('Chicago Blues','asmaquintero','20111023',1),
+('Classic Blues','simraconrad','20111019',0),
+('Classic Female Blues','yvettemaguire','20170810',1),
+('Truck-Driving Countr','cohanmcphee','20151210',0),
+('Urban Cowboy','tasnimrobbins','20090522',1),
+('Western Swing','santiagobowes','20000916',1),
+('Zydeco','serenityguzman','20071123',0),
+('Acid Techno','liahowell','20161220',1),
+('Detroit Techno','ruebenduncan','20120722',1),
+('Free Tekno','kamronemery','20140324',0),
+('Ghettotech','julesoliver','20010901',0),
+('Acoustic Techno','shanipowell','20000113',0),
+('African Techno','cathyworthington','20030706',1),
+('Techno Rock','corbanboone','20020531',0),
+('Techno Shouter','rickhurley','20050426',1),
+('British Techno','coltonneville','20040204',0),
+('Canadian Techno','sarahjaneturnbull','20070319',0),
+('Chicago Techno','asmaquintero','20111023',1),
+('Classic Techno','simraconrad','20111019',0),
+('Classic Female Techno','yvettemaguire','20170810',1),
+('Truck-Driving Metal','cohanmcphee','20151210',0),
+('Urban Swing','tasnimrobbins','20090522',1),
+('Western Cowboy','santiagobowes','20000916',1),
+('New Zydeco','serenityguzman','20071123',0),
+('Acid Blues','liahowell','20161220',1),
+('Detroit Blues','ruebenduncan','20120722',1),
+('Free Blues','kamronemery','20140324',0),
+('New Ghettotech','julesoliver','20010901',0);
 
-/*
-RACI (RaciTarId, RaciUsuario, RaciRol)
-En esta tabla se guardan los usuarios vinculados a cada tarea y el rol que tienen en dicha tarea. Los
-Roles posibles son: Responsable de Ejecución (R), Administrador (A), Consultor (C) aporta
-información requerida para realizar la tarea, y finalmente Informativo persona que debe estar
-informada del cambio (I)
 
-*/
-Create Table RACI (
-	RaciTarId int NOT NULL, 
-	RaciUsuario varchar(50) NOT NULL, 
-	RaciRol char(1) NOT NULL,
-	PRIMARY KEY (RaciTarId, RaciUsuario, RaciRol),
-	CHECK (RaciRol = 'R' OR RaciRol = 'A' OR RaciRol = 'C' OR RaciRol = 'I')
-	)
-GO
+INSERT INTO playListCancion(playListId,cancionId) VALUES
+(39,71),(39,25),(39,78),(39,77),(39,29),(39,100),(39,79),(39,47),(39,36),(39,66),(39,3),
+(38,71),(38,25),(38,78),(38,77),(38,29),(38,100),(38,79),(38,47),(38,36),(38,66),(38,3),
+(37,71),(37,25),(37,78),(37,77),(37,29),(37,100),(37,79),(37,47),(37,36),(37,66),(37,3),
+(35,71),(35,25),(35,78),(35,77),(35,29),(35,100),(35,79),(35,47),(35,36),(35,66),(35,3),
+(12,71),(12,25),(12,78),(12,77),(12,29),(12,100),(12,79),(12,47),(12,36),(12,66),(12,3),
+(4,63),(4,21),(4,42),(4,86),(4,11),(4,4),(4,69),(4,93),(4,47),(4,92),(4,77),(4,25),
+(9,34),(9,49),(9,45),(9,10),(9,85),(9,61),(9,88),(9,96),(9,48),(9,19),(9,68),(9,18),
+(30,49),(30,85),(30,30),(30,3),(30,66),(30,65),(30,25),(30,62),(30,53),(30,12),(30,55),(30,24),
+(1,86),(1,52),(1,80),(1,89),(1,45),(1,54),(1,22),(1,24),(1,32),(1,23),(1,67),
+(31,67),(31,23),(31,95),(31,19),(31,38),(31,13),(31,65),(31,6),(31,100),(31,14),(31,55),(31,43),
+(13,67),(13,28),(13,86),(13,79),(13,40),(13,42),(13,62),(13,96),(13,4),(13,41),(13,14),
+(3,59),(3,53),(3,54),(3,37),(3,48),(3,98),(3,55),(3,50),(3,5),(3,61),(3,56),
+(26,62),(26,66),(26,60),(26,20),(26,1),(26,48),(26,11),(26,17),(26,63),(26,46),(26,75),(26,13),
+(19,61),(19,38),(19,74),(19,47),(19,80),(19,32),(19,84),(19,64),(19,77),(19,36),(19,70),
+(1,81),(1,21),(1,83),(1,69),(1,36),(1,29),(1,1),(1,42),(1,92),(1,33),(1,37),(1,84),
+(20,45),(20,33),(20,96),(20,38),(20,57),(20,1),(20,23),(20,90),(20,91),(20,71),(20,50),
+(20,76),(20,22),(20,6),(20,53),(20,13),(20,84),(20,14),(20,18),(20,10),(20,25),
+(32,79),(32,49),(32,47),(32,16),(32,75),(32,51),(32,66),(32,7),(32,48),(32,57),(32,46),(32,39),
+(15,54),(15,41),(15,5),(15,100),(15,18),(15,37),(15,28),(15,50),(15,39),(15,30),(15,76),
+(33,56),(33,50),(33,90),(33,84),(33,30),(33,13),(33,80),(33,7),(33,82),(33,21),(33,77),(33,60),
+(29,99),(29,88),(29,94),(29,31),(29,52),(29,15),(29,79),(29,3),(29,46),(29,89),(29,7),(29,91);
+
+
+INSERT INTO historialCancion(historialCancionFecha,usuarioId,cancionId) VALUES
+('20030322 04:05:12','korbenrhodes','7'),
+('20180818 05:40:04','anumcotton','17'),
+('20150610 12:22:16','marisagray','56'),
+('20180719 00:55:09','kitrandall','28'),
+('20081128 13:03:37','shanipowell','54'),
+('20091020 23:44:30','lynnlloyd','88'),
+('20100217 23:08:11','alasdairsteele','57'),
+('20170902 19:35:27','devontemathis','21'),
+('20111121 21:34:43','lynnlloyd','47'),
+('20040314 14:22:51','tyreesehansen','89'),
+('20190821 06:21:12','delorescartwright','85'),
+('20120128 14:21:11','abucook','19'),
+('20150419 13:01:07','jamieleearellano','60'),
+('20150224 13:13:18','yvettemaguire','52'),
+('20060930 23:38:06','lynnlloyd','35'),
+('20110115 19:53:15','abucook','92'),
+('20090103 11:40:18','leighawilcox','21'),
+('20110401 17:09:35','marcelinamoody','4'),
+('20111204 22:07:29','nabilbentley','74'),
+('20131017 09:21:58','stephenyang','67'),
+('20040217 07:56:42','johnathontyson','14'),
+('20091104 04:58:16','mateoventura','55'),
+('20040204 08:14:25','ieuanbyrd','91'),
+('20160514 15:58:14','nabilbentley','79'),
+('20120724 23:39:47','sheridanwharton','72'),
+('20160408 13:54:17','sarahjaneturnbull','37'),
+('20180828 12:02:51','stephenyang','9'),
+('20030731 02:27:29','anumcotton','77'),
+('20080301 22:27:12','emileerogers','94'),
+('20000325 09:38:20','emrepineda','70'),
+('20150703 23:05:16','griffahmed','83'),
+('20130725 05:26:17','griffahmed','10'),
+('20190404 11:56:33','mateoventura','65'),
+('20070106 14:51:53','tyreesehansen','13'),
+('20100213 13:23:48','marisagray','72'),
+('20171107 18:22:17','jethrorussell','92'),
+('20010604 06:50:27','martynholder','55'),
+('20110402 06:51:39','cohanmcphee','31'),
+('20191019 05:07:41','liahowell','65'),
+('20070319 08:23:56','sidneyclark','90'),
+('20011201 04:12:10','derryspencer','91'),
+('20141105 05:53:35','scarlethendrix','9'),
+('20071227 18:07:29','liliwheatley','25'),
+('20070117 00:30:44','emileerogers','56'),
+('20130330 01:44:42','maredtraynor','5'),
+('20150423 09:00:48','manonalexander','62'),
+('20060308 18:35:01','adrianawolfe','36'),
+('20050909 12:53:51','balrajsimons','83'),
+('20140616 00:12:09','cohanmcphee','20'),
+('20090830 16:10:56','sydneypaine','93'),
+('20080222 13:13:28','sydneypaine','21'),
+('20101004 20:52:56','christosaldred','35'),
+('20070523 15:55:21','massimowiley','86'),
+('20040803 23:51:01','sheridanwharton','59'),
+('20140203 13:26:46','khushismith','32'),
+('20050705 09:27:19','sheridanwharton','83'),
+('20070906 00:59:43','ieuanbyrd','86'),
+('20040610 01:51:37','tasnimrobbins','96'),
+('20120522 15:01:46','nilelandry','90'),
+('20130913 02:18:00','simraconrad','52'),
+('20040615 23:47:22','elyshapope','58'),
+('20170504 21:59:34','monicagilmour','83'),
+('20120614 20:39:09','bradleywilliamson','63'),
+('20111121 05:28:01','martynarodrigues','54'),
+('20110825 20:51:12','devontemathis','3'),
+('20131012 10:54:16','victornieves','32'),
+('20181005 09:41:27','shanaefrost','54'),
+('20051027 20:40:54','nilelandry','16'),
+('20080508 07:55:39','delorescartwright','25'),
+('20130908 20:34:21','aasiyahsalinas','41'),
+('20061215 22:59:16','brettfranco','10'),
+('20080320 03:01:18','daanishgreene','52'),
+('20160926 20:40:51','cohanmcphee','36'),
+('20000319 00:05:20','martynholder','8'),
+('20000717 18:57:06','elyshapope','57'),
+('20090209 20:26:54','martynarodrigues','17'),
+('20130416 06:19:00','eoingaines','34'),
+('20030609 04:50:17','ivobrowne','24'),
+('20010303 11:54:54','alasdairsteele','57'),
+('20141030 18:43:47','adrianawolfe','50'),
+('20090401 23:33:44','sydneypaine','14'),
+('20090916 02:58:44','stephenyang','39'),
+('20170810 10:54:21','bradleywilliamson','27'),
+('20080426 06:33:47','khushismith','53'),
+('20100324 17:23:35','tasnimrobbins','53'),
+('20080407 03:08:36','sydneypaine','89'),
+('20091014 16:15:37','sarahjaneturnbull','83'),
+('20130524 15:33:43','tasnimrobbins','32'),
+('20000816 09:45:12','liliwheatley','33'),
+('20160525 02:11:56','ivobrowne','96'),
+('20100826 15:55:06','joshuadodson','20'),
+('20140417 01:29:43','marcelinamoody','70'),
+('20070526 20:05:25','calumcrosby','5'),
+('20031111 17:04:43','eviemaecrane','1'),
+('20170208 21:25:44','maddysnyder','100'),
+('20081210 16:43:27','massimowiley','23'),
+('20150626 00:10:34','daanishgreene','21'),
+('20180813 00:26:52','devontemathis','37'),
+('20100808 02:28:42','amandeepalford','64'),
+('20161103 14:35:32','balrajsimons','61');
+
