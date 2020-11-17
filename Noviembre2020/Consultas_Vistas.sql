@@ -4,6 +4,12 @@
 resueltas aún. En el resultado debe aparecer también el nombre de la zona en la cual
 se detectó la Vulnerabilidad */
 
+SELECT v.ScnHerr, v.ScnVulnNom, z.ZonaNom, v.VulnFchScanO, v.VulnFchScanU, v.VulnCriticidad ,v.TarID
+FROM CTRLVULNERABILIDADES v
+left join ZONAS z on z.ZonaId = v.zonaId
+left join TAREAS t on t.TarId = v.TarID
+WHERE v.VulnCriticidad = 'ALTA' 
+AND (t.TarEstado = 'EN ESPERA' OR t.TarEstado = 'EN DESARROLLO');
 
 /* b) Mostrar los datos de los usuarios que pueden acceder a todas las zonas. */
 
