@@ -112,6 +112,7 @@ Create Table PERMISOSCNX (
 	ZonaId int NOT NULL, 
 	Habilitado char(2) NOT NULL,
 	PRIMARY KEY (Usuario, ZonaId),
+	FOREIGN KEY (Usuario) REFERENCES USUARIOS(Usuario),
 	FOREIGN KEY (ZonaId) REFERENCES ZONAS(ZonaId),
 	CHECK (Habilitado = 'SI' OR Habilitado = 'NO')
 	)
@@ -133,8 +134,9 @@ Create Table CTRLCONEXIONES (
 	CnxFchHr datetime NOT NULL, 
 	CnxPermitida bit, 
 	TarID int,
-	FOREIGN KEY (Usuario) REFERENCES USUARIOS,
-	FOREIGN KEY (TarId) REFERENCES TAREAS,
+	FOREIGN KEY (Usuario) REFERENCES USUARIOS(Usuario),
+	FOREIGN KEY (TarId) REFERENCES TAREAS(TarId),
+	FOREIGN KEY (EqpIP) REFERENCES EQUIPOS(EqpIP),
 	PRIMARY KEY (CnxId))
 GO
 /*
@@ -246,4 +248,3 @@ CREATE INDEX ind_tarTarHrsAcum ON TAREAS(TarHrsAcum)
 
 -- Tabla CTRLCONEXIONES columna CnxFchHr
 CREATE INDEX ind_ctrlconCnxFchHr ON CTRLCONEXIONES(CnxFchHr) 
-
