@@ -213,13 +213,17 @@ GO
 -- Tabla EQUIPOS columna ZonaId
 CREATE INDEX ind_eqZonaId ON EQUIPOS(ZonaId) 
 
--- Tabla PERMISOSCNX columna ZonaId
+-- Tabla PERMISOSCNX columnas ZonaId y Usuario
 CREATE INDEX ind_permZonaId ON PERMISOSCNX(ZonaId)
 
--- Tabla CTRLCONEXIONES columnas Usuario y TarId
+CREATE INDEX ind_permUsuario ON PERMISOSCNX(Usuario)
+
+-- Tabla CTRLCONEXIONES columnas Usuario, TarId y EqpIP
 CREATE INDEX ind_ctrlconUsuario ON CTRLCONEXIONES(Usuario) 
 
 CREATE INDEX ind_ctrlconTarId ON CTRLCONEXIONES(TarId) 
+
+CREATE INDEX ind_ctrlconEqpIP ON CTRLCONEXIONES(EqpIP) 
 
 -- Tabla CTRLVULNERABILIDADES columnas ScnHerr con ScnVulnNom, TarId y ZonaId
 CREATE INDEX ind_ctrlvulScnHerrScnVulnNom ON CTRLVULNERABILIDADES(ScnHerr, ScnVulnNom) 
@@ -238,7 +242,7 @@ CREATE INDEX ind_ctrlvulVulnCriticidad ON CTRLVULNERABILIDADES(VulnCriticidad)
 CREATE INDEX ind_zonZonaNom ON ZONAS(ZonaNom) 
 
 -- Tabla CTRLCONEXIONES columna CnxPermitida
-CREATE INDEX ind_ctrlconCnxPermitida ON CTRLCONEXIONES(CnxPermitida) 
+CREATE INDEX ind_ctrlconCnxPermitida ON CTRLCONEXIONES(CnxPermitida)
 
 -- Tabla TAREAS columna TarEstado
 CREATE INDEX ind_tarTarEstado ON TAREAS(TarEstado) 
