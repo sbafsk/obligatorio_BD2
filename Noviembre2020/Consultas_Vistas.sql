@@ -9,7 +9,7 @@ FROM CTRLVULNERABILIDADES v
 left join ZONAS z on z.ZonaId = v.zonaId
 left join TAREAS t on t.TarId = v.TarID
 WHERE v.VulnCriticidad = 'ALTA' 
-AND (t.TarEstado = 'EN ESPERA' OR t.TarEstado = 'EN DESARROLLO');
+AND t.TarEstado IN ('EN ESPERA', 'EN DESARROLLO');
 
 /* b) Mostrar los datos de los usuarios que pueden acceder a todas las zonas. */
 
