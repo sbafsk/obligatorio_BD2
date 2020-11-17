@@ -1,3 +1,31 @@
+--Consultas:
+
+/* a) Mostrar los datos de las ultimas Vulnerabilidades de criticidad ALTA que no hayan sido
+resueltas aún. En el resultado debe aparecer también el nombre de la zona en la cual
+se detectó la Vulnerabilidad */
+
+
+/* b) Mostrar los datos de los usuarios que pueden acceder a todas las zonas. */
+
+
+/*c) Mostrar los datos de las zonas mas seguras de la red, siendo estas aquellas que no
+han tenido vulnerabilidades ALTA los últimos tres meses, y que tienen menos de 3
+usuarios con conexiones no permitidas en el último mes*/
+
+
+/*d) Se quiere los usuarios que hace mas de 180 dias que no se conectan. En el resultado
+debe aparecer la cantidad de días que hace que no se conectan y el nombre del
+equipo al que se conectó por última vez*/
+
+
+/*e) Para cada usuario que es responsable de mas de 3 tareas no resueltas, mostrar el
+usuario y el promedio de horas que están insumiendo estas tareas*/
+
+
+/*f) Para cada Zona de la Red indicar la cantidad de conexiones no permitidas a equipos
+de la zona, y la cantidad de vulnerabilidades encontradas en la zona en los últimos 30
+días. Usar la función 6b) en la solución implementada*/
+
 -- ##
 -- 
 -- Consultas y Vistas.
