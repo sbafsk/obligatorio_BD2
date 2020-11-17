@@ -96,7 +96,7 @@ Create Table EQUIPOS (
 	ZonaId int NOT NULL,
 	PRIMARY KEY (EqpIP),
 	FOREIGN KEY (ZonaId) REFERENCES ZONAS(ZonaId),
-	CHECK (EqpIP LIKE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'),
+	--CHECK (EqpIP LIKE '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}'),
 	CHECK (EqpTipo = 'Terminal' OR EqpTipo = 'Servidor' OR EqpTipo = 'Tablet' OR EqpTipo = 'Impresora')
 	)
 GO
@@ -246,3 +246,4 @@ CREATE INDEX ind_tarTarHrsAcum ON TAREAS(TarHrsAcum)
 
 -- Tabla CTRLCONEXIONES columna CnxFchHr
 CREATE INDEX ind_ctrlconCnxFchHr ON CTRLCONEXIONES(CnxFchHr) 
+
