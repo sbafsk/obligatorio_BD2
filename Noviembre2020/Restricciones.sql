@@ -24,6 +24,7 @@ Se considera que la cantidad de horas de trabajo acumuladas debe ser mayor a 1 h
 sola gestión inicial lleva por lo menos ese tiempo.
 
 */
+
 Create Table TAREAS (
 	TarId int identity(1,1)	not null, 
 	TarEstado varchar(15) NOT NULL, 
@@ -96,7 +97,8 @@ Create Table EQUIPOS (
 	ZonaId int NOT NULL,
 	PRIMARY KEY (EqpIP),
 	FOREIGN KEY (ZonaId) REFERENCES ZONAS(ZonaId),
-	--CHECK (EqpIP LIKE '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}'),
+	CHECK (EqpIP LIKE '([0-9]{0,3}\.){3}[0-9]{0,3}'),
+	--CHECK (EqpIP LIKE '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}'), ([0-9]{0,3}\.){3}[0-9]{0,3}
 	CHECK (EqpTipo = 'Terminal' OR EqpTipo = 'Servidor' OR EqpTipo = 'Tablet' OR EqpTipo = 'Impresora')
 	)
 GO
@@ -127,12 +129,13 @@ Si el usuario está intentando conectarse a una zona para la cual tiene permiso 
 conexión, si una conexión fue permitida o no se registra en el campo CnxPermitida
 En el campo TarID indica la tarea que analizara el caso, en caso de ser necesario.
 */
+
 Create Table CTRLCONEXIONES (
 	CnxId int identity(1,1) not null, 
-	Usuario varchar(50) , 
+	Usuario varchar(50), 
 	EqpIP char(15), 
 	CnxFchHr datetime NOT NULL, 
-	CnxPermitida bit, 
+	CnxPermitida char(2), 
 	TarID int,
 	FOREIGN KEY (Usuario) REFERENCES USUARIOS(Usuario),
 	FOREIGN KEY (TarId) REFERENCES TAREAS(TarId),
