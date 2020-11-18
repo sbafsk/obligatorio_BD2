@@ -1,5 +1,6 @@
 --CONSULTAS:
 
+
 /* a) Mostrar los datos de las ultimas Vulnerabilidades de criticidad ALTA que no hayan sido
 resueltas aún. En el resultado debe aparecer también el nombre de la zona en la cual
 se detectó la Vulnerabilidad */
@@ -11,7 +12,14 @@ left join TAREAS t on t.TarId = v.TarID
 WHERE v.VulnCriticidad = 'ALTA' 
 AND t.TarEstado IN ('EN ESPERA', 'EN DESARROLLO');
 
+
 /* b) Mostrar los datos de los usuarios que pueden acceder a todas las zonas. */
+
+SELECT u.Usuario, u.UsuPsw, u.UsuNomApp, u.UsuMail
+FROM USUARIOS u, PERMISOSCNX p
+WHERE u.Usuario = p.Usuario AND p.Habilitado = 'SI'
+GROUP BY u.Usuario, u.UsuPsw, u.UsuNomApp, u.UsuMail
+HAVING COUNT(p.ZonaId) = (SELECT count(*) FROM ZONAS)
 
 
 /*c) Mostrar los datos de las zonas mas seguras de la red, siendo estas aquellas que no
