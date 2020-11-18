@@ -50,6 +50,8 @@ SELECT DISTINCT
 	(SELECT COUNT(cv.ScnHerr) from CTRLVULNERABILIDADES cv WHERE CV.VulnCriticidad = 'BAJA' AND cv.ScnHerr = e.ScnHerr AND Month(cv.VulnFchScanU) = MONTH(GETDATE())) as BAJA
 FROM ESCANEOS E
 
+--SELECT cv.* from CTRLVULNERABILIDADES cv WHERE cv.VulnCriticidad = 'ALTA' AND Month(cv.VulnFchScanU) = MONTH(GETDATE())
+
 
 /*b. Crear una vista que muestre los datos de los usuarios (usuario, nombre) más
 críticos siendo estos los que son responsables de ejecutar más cantidad de tareas
