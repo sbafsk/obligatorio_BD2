@@ -3,59 +3,12 @@
 -- DISPARADORES
 --
 -- ##
-
+USE OBLIGATORIOBD2
+GO
 /*a. Mediante un disparador, controle que solo se puedan insertar de a un equipo por vez
 Y cuando esto ocurra controle que se cumplan las restricciones que debe cumplir esta
 tabla y que no pudieron ser implementadas en el créate de la misma
 (este disparador debe tener en cuenta inserciones SIMPLES)*/
-
-
-/*b. Crear un disparador que cada vez que se ingrese un registro a la tabla de Control de
-Conexiones determine los valores que corresponden para los campos fecha-hora y
-conexión permitida. Usar el procedimiento o función implementado en el punto 6a)
-(este disparador debe tener en cuenta inserciones MULTIPLES)*/
-
-
-/*c. Crear un disparador que cada vez que se ingresen controles de vulnerabilidades,
-resultados de escaneos, haga lo siguiente
-• Si esa vulnerabilidad esta abierta, actualice la fecha de ultima vez que fue
-encontrada la vulnerabilidad con la fecha del dia.
-• Si esa vulnerabilidad no esta abierta agregue el registro (inicialmente sin tarea
-asociada)
-Se considera que una vulnerabilidad esta abierta si dicha herramienta ya la detecto en
-la misma zona, y no tiene tarea asociada o tiene una tarea que no esta RESUELTA
-(este disparador debe tener en cuenta modificaciones SIMPLES)*/
-
-
-/*d. Crear un disparador que controle que solo se puedan eliminar control de conexiones
-que no tengan tareas asociadas y que sean de una antigüedad mayor a 1 año.
-(este disparador debe tener en cuenta eliminaciones MULTIPLES)*/
-
-
-/*e. Crear un disparador que controle que si una tarea es marcada como CANCELADA
-deje en null los controles de conexiones o vulnerabilidades que tenga asociados.
-(este disparador debe tener en cuenta modificaciones MULTIPLES)
-*/
-
-
-
--- ##
---
--- Disparadores
--- 
--- ##
-
-USE OBLIGATORIOBD2
-GO
-
-/*
- a. Mediante un disparador, controle que solo se puedan insertar de a un equipo por vez
-    y cuando esto ocurra controle que se cumplan las restricciones que debe cumplir esta
-	tabla y que no pudieron ser implementadas en el créate de la misma
-	(este disparador debe tener en cuenta inserciones SIMPLES)
-
-*/
-
 CREATE TRIGGER controlInserIntoEquipos
 	ON EQUIPOS 
 	INSTEAD OF INSERT
@@ -100,6 +53,50 @@ BEGIN
 END
 GO
 SELECT * FROM EQUIPOS ORDER BY EqpNom
+
+/*b. Crear un disparador que cada vez que se ingrese un registro a la tabla de Control de
+Conexiones determine los valores que corresponden para los campos fecha-hora y
+conexión permitida. Usar el procedimiento o función implementado en el punto 6a)
+(este disparador debe tener en cuenta inserciones MULTIPLES)*/
+
+
+/*c. Crear un disparador que cada vez que se ingresen controles de vulnerabilidades,
+resultados de escaneos, haga lo siguiente
+• Si esa vulnerabilidad esta abierta, actualice la fecha de ultima vez que fue
+encontrada la vulnerabilidad con la fecha del dia.
+• Si esa vulnerabilidad no esta abierta agregue el registro (inicialmente sin tarea
+asociada)
+Se considera que una vulnerabilidad esta abierta si dicha herramienta ya la detecto en
+la misma zona, y no tiene tarea asociada o tiene una tarea que no esta RESUELTA
+(este disparador debe tener en cuenta modificaciones SIMPLES)*/
+
+
+/*d. Crear un disparador que controle que solo se puedan eliminar control de conexiones
+que no tengan tareas asociadas y que sean de una antigüedad mayor a 1 año.
+(este disparador debe tener en cuenta eliminaciones MULTIPLES)*/
+
+
+/*e. Crear un disparador que controle que si una tarea es marcada como CANCELADA
+deje en null los controles de conexiones o vulnerabilidades que tenga asociados.
+(este disparador debe tener en cuenta modificaciones MULTIPLES)
+*/
+
+
+
+
+
+
+-- ###################
+-- codigo viejo
+--  | 
+--	v
+-- ###################
+
+
+
+
+
+
 
 -- ##
 -- B. Cuando se ingrese una playList, 
