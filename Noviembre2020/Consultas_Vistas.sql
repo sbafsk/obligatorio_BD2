@@ -70,6 +70,18 @@ select * from raci r where r.RaciUsuario = 'clafoyr'
 de la zona, y la cantidad de vulnerabilidades encontradas en la zona en los últimos 30
 días. Usar la función 6b) en la solución implementada*/
 
+SELECT z.ZonaId, z.ZonaNom, z.ZonaDescrip, count(distinct c.CnxId) as Cantidad_NoPermitida, dbo.CantVulnZonaUltimosDias(z.ZonaId, 30) as Cantidad_Vulnerabilidades
+from Zonas z, CTRLCONEXIONES c, EQUIPOS e
+where c.CnxPermitida = 0
+	and e.ZonaId = z.ZonaId
+	and c.EqpIP = e.EqpIP
+group by z.ZonaId, z.ZonaNom, z.ZonaDescrip
+
+--test
+select * from CTRLCONEXIONES c where c.CnxPermitida = 0
+select * from EQUIPOS e
+
+
 
 --VISTAS:
 
