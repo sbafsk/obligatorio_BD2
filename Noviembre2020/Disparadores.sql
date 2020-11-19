@@ -52,12 +52,45 @@ BEGIN
 
 END
 GO
-SELECT * FROM EQUIPOS ORDER BY EqpNom
+
+
 
 /*b. Crear un disparador que cada vez que se ingrese un registro a la tabla de Control de
 Conexiones determine los valores que corresponden para los campos fecha-hora y
 conexión permitida. Usar el procedimiento o función implementado en el punto 6a)
 (este disparador debe tener en cuenta inserciones MULTIPLES)*/
+CREATE TRIGGER controlConexionesPermisos
+	ON CTRLCONEXIONES 
+	INSTEAD OF INSERT
+AS
+BEGIN	
+
+	SET NOCOUNT ON;	
+	
+	DECLARE @usuario varchar(50), 
+			@eqpIp char(15), 
+			@habilitado varchar(2)
+
+	SELECT @usuario = I.Usuario, @eqpIp = I.EqpIP
+	FROM inserted I
+
+	EXEC UsarioConPermisoEnEquipo @usuario, @eqpIp, @habilitado
+
+					
+	INSERT INTO CTRLCONEXIONES (I.Usuario, EqpIP, CnxFchHr, CnxPermitida) VALUES 
+	SELECT I.Usuario, I.EqpIP, getdate(), @habilitado 
+	FROM inserted I
+	
+
+END
+GO
+
+
+select * from EQUIPOS
+select * from PERMISOSCNX
+
+
+
 
 
 /*c. Crear un disparador que cada vez que se ingresen controles de vulnerabilidades,
