@@ -35,6 +35,18 @@ equipo al que se conectó por última vez*/
 /*e) Para cada usuario que es responsable de mas de 3 tareas no resueltas, mostrar el
 usuario y el promedio de horas que están insumiendo estas tareas*/
 
+SELECT u.Usuario, AVG(t.TarHrsAcum) as Promedio_Horas
+FROM USUARIOS u, TAREAS t, RACI r
+WHERE r.RaciUsuario = u.Usuario
+	AND r.RaciTarId = t.TarId
+	AND t.TarEstado not in ('CANCELADA','RESUELTO')
+GROUP BY u.Usuario
+HAVING Count(*) > 3
+
+-- test
+select * from tareas t where t.TarEstado not in ('CANCELADA','RESUELTO') and t.TarId in ('4','19','57','60','95', '101')
+select * from raci r where r.RaciUsuario = 'clafoyr'
+
 
 /*f) Para cada Zona de la Red indicar la cantidad de conexiones no permitidas a equipos
 de la zona, y la cantidad de vulnerabilidades encontradas en la zona en los últimos 30
