@@ -26,6 +26,24 @@ HAVING COUNT(p.ZonaId) = (SELECT count(*) FROM ZONAS)
 han tenido vulnerabilidades ALTA los últimos tres meses, y que tienen menos de 3
 usuarios con conexiones no permitidas en el último mes*/
 
+select z.ZonaId, z.ZonaNom, z.ZonaDescrip
+from ZONAS z, Usuarios u
+where z.ZonaId <> ALL(select distinct c.ZonaId
+				from CTRLVULNERABILIDADES c 
+				where (c.VulnFchScanU BETWEEN DATEADD(month, -3, GETDATE()) and GETDATE()) and c.VulnCriticidad = 'ALTA')
+and z.ZonaId in (select distinct p.ZonaId from PERMISOSCNX p where p.Habilitado = 'NO' group by p.ZonaId having COUNT(*) < 3)
+group by z.ZonaId, z.ZonaNom, z.ZonaDescrip
+
+
+-- TEST
+select p.ZonaId from PERMISOSCNX p where p.Habilitado = 'NO' group by p.ZonaId having COUNT(*) < 3
+
+select * from PERMISOSCNX p, ZONAS z where p.ZonaId = z.ZonaId and p.Habilitado = 'NO'
+select p.Usuario from PERMISOSCNX p where p.Habilitado = 'NO' group by p.Usuario having COUNT(*) < 3
+
+select distinct c.ZonaId from CTRLVULNERABILIDADES c where (c.VulnFchScanU BETWEEN DATEADD(month, -3, GETDATE()) and GETDATE()) and c.VulnCriticidad = 'ALTA'
+select c.ZonaId, c.ScnHerr, c.ScnVulnNom, c.VulnFchScanU, c.TarID, DATEADD(month, -3, GETDATE()) as tiempo  from CTRLVULNERABILIDADES c where c.VulnFchScanU BETWEEN DATEADD(month, -3, GETDATE()) and GETDATE() and c.VulnCriticidad = 'ALTA';
+
 
 /*d) Se quiere los usuarios que hace mas de 180 dias que no se conectan. En el resultado
 debe aparecer la cantidad de días que hace que no se conectan y el nombre del
