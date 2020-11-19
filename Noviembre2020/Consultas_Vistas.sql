@@ -67,6 +67,15 @@ que no están resueltas ni en espera. En el resultado también debe aparecer el
 promedio de horas dedicadas a esas tareas.*/
 
 
+CREATE VIEW Usuarios_Criticos AS
+select u.Usuario, u.UsuNomApp, AVG(t.TarHrsAcum) as Promedio_Horas
+from USUARIOS u, TAREAS t, RACI r
+where r.RaciUsuario = u.Usuario and r.RaciTarId = t.TarId and t.TarEstado in ('CANCELADAS','EN DESARROLLO')
+group by u.Usuario, u.UsuNomApp;
+
+-- * test * 
+select * from tareas t where t.TarEstado in ('CANCELADAS','EN DESARROLLO') and t.TarId in ('6','43')
+select * from raci r where r.RaciUsuario = 'zhazeman9'
 
 
 -- ##
