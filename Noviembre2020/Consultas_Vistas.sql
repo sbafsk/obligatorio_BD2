@@ -30,10 +30,35 @@ HAVING COUNT(p.ZonaId) = (SELECT count(*) FROM ZONAS)
 han tenido vulnerabilidades ALTA los últimos tres meses, y que tienen menos de 3
 usuarios con conexiones no permitidas en el último mes*/
 
+select z.ZonaId, z.ZonaNom, z.ZonaDescrip
+from ZONAS z, Usuarios u
+where z.ZonaId <> ALL(select distinct c.ZonaId
+				from CTRLVULNERABILIDADES c 
+				where (c.VulnFchScanU BETWEEN DATEADD(month, -3, GETDATE()) and GETDATE()) and c.VulnCriticidad = 'ALTA')
+and z.ZonaId in (select distinct p.ZonaId from PERMISOSCNX p where p.Habilitado = 'NO' group by p.ZonaId having COUNT(*) < 3)
+group by z.ZonaId, z.ZonaNom, z.ZonaDescrip
+
+
+-- TEST
+select p.ZonaId from PERMISOSCNX p where p.Habilitado = 'NO' group by p.ZonaId having COUNT(*) < 3
+
+select * from PERMISOSCNX p, ZONAS z where p.ZonaId = z.ZonaId and p.Habilitado = 'NO'
+select p.Usuario from PERMISOSCNX p where p.Habilitado = 'NO' group by p.Usuario having COUNT(*) < 3
+
+select distinct c.ZonaId from CTRLVULNERABILIDADES c where (c.VulnFchScanU BETWEEN DATEADD(month, -3, GETDATE()) and GETDATE()) and c.VulnCriticidad = 'ALTA'
+select c.ZonaId, c.ScnHerr, c.ScnVulnNom, c.VulnFchScanU, c.TarID, DATEADD(month, -3, GETDATE()) as tiempo  from CTRLVULNERABILIDADES c where c.VulnFchScanU BETWEEN DATEADD(month, -3, GETDATE()) and GETDATE() and c.VulnCriticidad = 'ALTA';
+
 
 /*d) Se quiere los usuarios que hace mas de 180 dias que no se conectan. En el resultado
 debe aparecer la cantidad de días que hace que no se conectan y el nombre del
 equipo al que se conectó por última vez*/
+
+SELECT u.Usuario, u.UsuPsw, u.UsuNomApp, u.UsuMail, DATEDIFF(day, c.CnxFchHr, GETDATE()) as Diferencia_dias, e.EqpNom
+FROM CTRLCONEXIONES c, USUARIOS u, EQUIPOS e
+WHERE not exists(SELECT c.CnxFchHr FROM CTRLCONEXIONES C WHERE u.Usuario = C.Usuario and c.CnxPermitida = 1 AND c.CnxFchHr > DATEADD(day, -180, GETDATE()))
+	and c.EqpIP = e.EqpIP
+	and c.Usuario = u.Usuario
+group by u. Usuario, u.UsuPsw, u.UsuNomApp, u.UsuMail, e.EqpNom, c.CnxFchHr
 
 
 /*e) Para cada usuario que es responsable de mas de 3 tareas no resueltas, mostrar el
@@ -55,6 +80,18 @@ select * from raci r where r.RaciUsuario = 'clafoyr'
 /*f) Para cada Zona de la Red indicar la cantidad de conexiones no permitidas a equipos
 de la zona, y la cantidad de vulnerabilidades encontradas en la zona en los últimos 30
 días. Usar la función 6b) en la solución implementada*/
+
+SELECT z.ZonaId, z.ZonaNom, z.ZonaDescrip, count(distinct c.CnxId) as Cantidad_NoPermitida, dbo.CantVulnZonaUltimosDias(z.ZonaId, 30) as Cantidad_Vulnerabilidades
+from Zonas z, CTRLCONEXIONES c, EQUIPOS e
+where c.CnxPermitida = 0
+	and e.ZonaId = z.ZonaId
+	and c.EqpIP = e.EqpIP
+group by z.ZonaId, z.ZonaNom, z.ZonaDescrip
+
+--test
+select * from CTRLCONEXIONES c where c.CnxPermitida = 0
+select * from EQUIPOS e
+
 
 
 --VISTAS:
