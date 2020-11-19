@@ -1,4 +1,5 @@
---Consultas:
+--CONSULTAS:
+
 
 /* a) Mostrar los datos de las ultimas Vulnerabilidades de criticidad ALTA que no hayan sido
 resueltas aún. En el resultado debe aparecer también el nombre de la zona en la cual
@@ -11,7 +12,14 @@ left join TAREAS t on t.TarId = v.TarID
 WHERE v.VulnCriticidad = 'ALTA' 
 AND t.TarEstado IN ('EN ESPERA', 'EN DESARROLLO');
 
+
 /* b) Mostrar los datos de los usuarios que pueden acceder a todas las zonas. */
+
+SELECT u.Usuario, u.UsuPsw, u.UsuNomApp, u.UsuMail
+FROM USUARIOS u, PERMISOSCNX p
+WHERE u.Usuario = p.Usuario AND p.Habilitado = 'SI'
+GROUP BY u.Usuario, u.UsuPsw, u.UsuNomApp, u.UsuMail
+HAVING COUNT(p.ZonaId) = (SELECT count(*) FROM ZONAS)
 
 
 /*c) Mostrar los datos de las zonas mas seguras de la red, siendo estas aquellas que no
@@ -31,6 +39,35 @@ usuario y el promedio de horas que están insumiendo estas tareas*/
 /*f) Para cada Zona de la Red indicar la cantidad de conexiones no permitidas a equipos
 de la zona, y la cantidad de vulnerabilidades encontradas en la zona en los últimos 30
 días. Usar la función 6b) en la solución implementada*/
+
+
+--VISTAS:
+
+USE OBLIGATORIOBD2
+GO
+
+/*a. Crear una vista que muestre para cada herramienta de escaneo mostrar la cantidad
+de vulnerabilidades que ha detectado de criticidad alta, media y baja en el mes
+actual. En el resultado de deben aparecer todas las herramientas de escaneo*/
+
+CREATE VIEW Escaneos_Vulnerabilidades AS
+SELECT DISTINCT
+	e.ScnHerr,
+	(SELECT COUNT(cv.ScnHerr) from CTRLVULNERABILIDADES cv WHERE CV.VulnCriticidad = 'ALTA' AND cv.ScnHerr = e.ScnHerr AND Month(cv.VulnFchScanU) = MONTH(GETDATE())) as ALTA,
+	(SELECT COUNT(cv.ScnHerr) from CTRLVULNERABILIDADES cv WHERE CV.VulnCriticidad = 'MEDIA' AND cv.ScnHerr = e.ScnHerr AND Month(cv.VulnFchScanU) = MONTH(GETDATE())) as MEDIA,
+	(SELECT COUNT(cv.ScnHerr) from CTRLVULNERABILIDADES cv WHERE CV.VulnCriticidad = 'BAJA' AND cv.ScnHerr = e.ScnHerr AND Month(cv.VulnFchScanU) = MONTH(GETDATE())) as BAJA
+FROM ESCANEOS E
+
+--SELECT cv.* from CTRLVULNERABILIDADES cv WHERE cv.VulnCriticidad = 'ALTA' AND Month(cv.VulnFchScanU) = MONTH(GETDATE())
+
+
+/*b. Crear una vista que muestre los datos de los usuarios (usuario, nombre) más
+críticos siendo estos los que son responsables de ejecutar más cantidad de tareas
+que no están resueltas ni en espera. En el resultado también debe aparecer el
+promedio de horas dedicadas a esas tareas.*/
+
+
+
 
 -- ##
 -- 
