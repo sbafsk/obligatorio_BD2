@@ -4,54 +4,61 @@
 -- 
 -- ##
 
-USE OBLIGATORIO1BD2
+USE OBLIGATORIOBD2
 GO
 
--- ##
--- A. Cada vez que se ingrese un registro en historialCanci�n, 
--- se actualicen la cantidad de reproducciones de la canci�n, 
--- el �lbum y el artista.
--- ##
+/*
+ a. Mediante un disparador, controle que solo se puedan insertar de a un equipo por vez
+    y cuando esto ocurra controle que se cumplan las restricciones que debe cumplir esta
+	tabla y que no pudieron ser implementadas en el créate de la misma
+	(este disparador debe tener en cuenta inserciones SIMPLES)
 
-CREATE TRIGGER actualizarCantidadReproduccionCancionAlbumArtista
-	ON historialCancion 
-	AFTER INSERT
+*/
+
+CREATE TRIGGER controlInserIntoEquipos
+	ON EQUIPOS 
+	INSTEAD OF INSERT
 AS
 BEGIN	
 
 	SET NOCOUNT ON;	
-
-	DECLARE @idCancion int;
-	DECLARE @idAlbum character(5);
-	DECLARE @idArtista int;		
 	
-	SELECT	@idCancion = I.cancionId,
-			@idAlbum = Al.albumId,
-			@idArtista = Ar.artistaId
-	FROM	inserted I, 
-			cancion C, 
-			album Al,
-			artista Ar
-	WHERE	Ar.artistaId = Al.artistaId AND
-			Al.albumId = C.albumId AND
-			C.cancionId = I.cancionId
-	
-	UPDATE cancion
-	SET cancionCantReproducciones = cancionCantReproducciones + 1
-	WHERE @idCancion = cancionId
+	DECLARE @eqpNom varchar(50), @eqpTipo varchar(10)
 
-	UPDATE album
-	SET albumCantReproducciones = albumCantReproducciones + 1
-	WHERE @idAlbum = albumId
+	IF(1 = (SELECT COUNT(I.EqpIP) FROM inserted I))
+		BEGIN
+			SELECT @eqpNom = I.EqpNom, @eqpTipo = I.EqpTipo
+			FROM inserted I
 
-
-	UPDATE artista
-	SET artistaCantReproducciones = artistaCantReproducciones + 1
-	WHERE @idArtista = artistaId
+			IF(@eqpTipo = 'Terminal')
+				BEGIN 
+					SET @eqpNom = CONCAT('WKS',@eqpNom)
+				END
+			IF(@eqpTipo = 'Servidor')
+				BEGIN 
+					SET @eqpNom = CONCAT('SRV',@eqpNom)
+				END
+			IF(@eqpTipo = 'Tablet')
+				BEGIN 
+					SET @eqpNom = CONCAT('TBL',@eqpNom)
+				END
+			ELSE
+				BEGIN 
+					SET @eqpNom = CONCAT('IMP',@eqpNom)
+				END
+				
+			INSERT INTO EQUIPOS 
+			SELECT I.EqpIp, @eqpNom, I.EqpSO, I.EqpTipo, I.ZonaId 
+			FROM inserted I
+		END
+	ELSE
+		BEGIN
+			Print 'Solo se puede insertar de a un equipo.'
+		END
 
 END
 GO
-
+SELECT * FROM EQUIPOS ORDER BY EqpNom
 
 -- ##
 -- B. Cuando se ingrese una playList, 

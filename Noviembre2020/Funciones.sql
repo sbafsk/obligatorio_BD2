@@ -29,6 +29,7 @@ BEGIN
 END
 GO
 
+/* TEST */
 SELECT dbo.CantVulnZonaUltimosDias(20, 90)
 
 select * from CTRLVULNERABILIDADES WHERE ZonaId = 20 ORDER BY VulnFchScanO 

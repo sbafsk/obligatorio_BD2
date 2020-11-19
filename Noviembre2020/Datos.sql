@@ -79,8 +79,12 @@ INSERT INTO USUARIOS (Usuario, UsuPsw, UsuNomApp, UsuMail) VALUES
 ('rclemmensen1c', 'XZQ3uK', 'Clemmensen', 'aclemmensen1c@discuz.net'),
 ('dricco1d', 'uaRz1h7R', 'Ricco', 'aricco1d@de.vu');
 
-
+SELECT * FROM EQUIPOS
 INSERT INTO EQUIPOS(EqpIP, EqpNom, EqpTipo, EqpSO, ZonaId) VALUES
+('1.1.1.1', '000TEST', 'Terminal', 'MS-Windows', 6),
+('14.17.48.60', '0bbanasiak1', 'Servidor', 'CentOS', 10),
+('11.11.40.203', '0hbrotherick2', 'Tablet', 'Mac OS', 11),
+('15.12.201.241', '0epearmain3', 'Impresora', 'Solaris', 11),
 ('180.83.120.40', 'iames0', 'Terminal', 'MS-Windows', 6),
 ('140.175.48.60', 'bbanasiak1', 'Servidor', 'CentOS', 10),
 ('110.113.40.203', 'hbrotherick2', 'Tablet', 'Mac OS', 11),
