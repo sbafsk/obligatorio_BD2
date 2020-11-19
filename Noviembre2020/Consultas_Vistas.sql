@@ -49,6 +49,13 @@ select c.ZonaId, c.ScnHerr, c.ScnVulnNom, c.VulnFchScanU, c.TarID, DATEADD(month
 debe aparecer la cantidad de días que hace que no se conectan y el nombre del
 equipo al que se conectó por última vez*/
 
+SELECT u.Usuario, u.UsuPsw, u.UsuNomApp, u.UsuMail, DATEDIFF(day, c.CnxFchHr, GETDATE()) as Diferencia_dias, e.EqpNom
+FROM CTRLCONEXIONES c, USUARIOS u, EQUIPOS e
+WHERE not exists(SELECT c.CnxFchHr FROM CTRLCONEXIONES C WHERE u.Usuario = C.Usuario and c.CnxPermitida = 1 AND c.CnxFchHr > DATEADD(day, -180, GETDATE()))
+	and c.EqpIP = e.EqpIP
+	and c.Usuario = u.Usuario
+group by u. Usuario, u.UsuPsw, u.UsuNomApp, u.UsuMail, e.EqpNom, c.CnxFchHr
+
 
 /*e) Para cada usuario que es responsable de mas de 3 tareas no resueltas, mostrar el
 usuario y el promedio de horas que están insumiendo estas tareas*/
