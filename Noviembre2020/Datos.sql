@@ -3,7 +3,7 @@
 USE OBLIGATORIOBD2
 GO
 
-INSERT INTO ZONAS (ZonaNom, ZonaDescrip) VALUES 
+INSERT INTO ZONAS (ZonaNom, ZonaDescrip) VALUES
 ('Redwing', 'nulla suspendisse potenti cras in purus eu magna vulputate luctus cum'),
 ('Center', 'in porttitor pede justo eu massa donec dapibus duis at velit eu est'),
 ('Eagan', 'tristique est et tempus semper est quam pharetra magna ac consequat metus sapien ut'),
@@ -23,7 +23,7 @@ INSERT INTO ZONAS (ZonaNom, ZonaDescrip) VALUES
 ('Express', 'donec ut dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo rhoncus sed'),
 ('Esker', 'nibh in hac habitasse platea dictumst aliquam augue quam '),
 ('Pankratz', 'platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris'),
-('Hanover', 'consequat nulla nisl nunc nisl duis bibendum felis sed interdum');
+('DMZ', 'Red Perimetral');
 
 
 
@@ -79,6 +79,29 @@ INSERT INTO USUARIOS (Usuario, UsuPsw, UsuNomApp, UsuMail) VALUES
 ('rclemmensen1c', 'XZQ3uK', 'Clemmensen', 'aclemmensen1c@discuz.net'),
 ('dricco1d', 'uaRz1h7R', 'Ricco', 'aricco1d@de.vu');
 
+USE OBLIGATORIOBD2
+
+/*
+CREAR PREFIGO EqpNom
+
+	UPDATE EQUIPOS 
+	SET EqpNom = CONCAT('WKS-',EqpNom)
+	WHERE EqpTipo = 'Terminal'
+
+	UPDATE EQUIPOS 
+	SET EqpNom = CONCAT('SRV-',EqpNom)
+	WHERE EqpTipo = 'Servidor'
+
+	UPDATE EQUIPOS 
+	SET EqpNom = CONCAT('IMP-',EqpNom)
+	WHERE EqpTipo = 'Impresora'
+
+	UPDATE EQUIPOS 
+	SET EqpNom = CONCAT('TBL-',EqpNom)
+	WHERE EqpTipo = 'Tablet'
+
+	SELECT * FROM EQUIPOS
+*/
 
 INSERT INTO EQUIPOS(EqpIP, EqpNom, EqpTipo, EqpSO, ZonaId) VALUES
 ('180.83.120.40', 'iames0', 'Terminal', 'MS-Windows', 6),
@@ -307,78 +330,76 @@ INSERT INTO PERMISOSCNX (Usuario, ZonaID, Habilitado) VALUES
 ('zjoannic6', 10, 'NO');
 
 
-
-
 INSERT INTO TAREAS (TarEstado, TarHrsAcum, TarFchIni, TarFchFin, TarFchFPrev, TarDescrip) VALUES
-('EN DESARROLLO', 10, '2019-12-06 00:16:23', '2020-11-12 20:57:06', '2020-07-26 09:10:22', 'Donec quis orci eget orci vehicula condimentum.'),
-('CANCELADA', 7, '2020-06-25 11:27:36', null, '2021-01-29 19:06:41', 'Pellentesque at nulla.'),
-('EN DESARROLLO', 20, '2020-02-11 05:17:53', '2020-07-08 08:25:29', '2020-09-06 07:07:54', 'Proin interdum mauris non ligula pellentesque ultrices.'),
-('EN ESPERA', 11, '2019-12-24 12:53:32', '2020-08-25 10:28:03', '2020-10-31 02:46:17', 'Vivamus tortor.'),
-('CANCELADA', 15, '2019-12-29 08:40:48', null, '2020-08-13 11:14:33', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla.'),
-('EN DESARROLLO', 18, '2020-04-22 18:33:01', '2020-09-05 16:51:14', '2020-11-06 03:38:23', 'Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.'),
+('EN DESARROLLO', 10, '2019-12-06 00:16:23', null, '2020-07-26 09:10:22', 'Donec quis orci eget orci vehicula condimentum.'),
+('CANCELADA', 7, '2020-06-25 11:27:36', '2020-10-13 08:56:45', '2021-01-29 19:06:41', 'Pellentesque at nulla.'),
+('EN DESARROLLO', 20, '2020-02-11 05:17:53', null, '2020-09-06 07:07:54', 'Proin interdum mauris non ligula pellentesque ultrices.'),
+('EN ESPERA', 11, '2019-12-24 12:53:32', null, '2020-10-31 02:46:17', 'Vivamus tortor.'),
+('CANCELADA', 15, '2019-12-29 08:40:48', '2020-10-13 08:56:45', '2020-08-13 11:14:33', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla.'),
+('EN DESARROLLO', 18, '2020-04-22 18:33:01', null, '2020-11-06 03:38:23', 'Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.'),
 ('EN DESARROLLO', 18, '2020-06-17 16:18:35', null, '2020-10-04 22:30:27', 'In congue.'),
 ('RESUELTO', 5, '2020-01-13 21:53:01', '2020-08-25 08:39:56', '2021-01-23 22:42:22', 'Nullam varius.'),
 ('EN DESARROLLO', 4, '2020-04-20 04:57:02', '2020-10-31 16:57:15', '2020-12-14 23:03:13', 'Curabitur gravida nisi at nibh.'),
 ('CANCELADA', 7, '2019-12-28 14:12:38', '2020-10-09 09:42:52', '2021-02-03 20:08:20', 'Curabitur gravida nisi at nibh.'),
-('EN ESPERA', 8, '2020-04-05 11:59:47', '2020-09-29 03:39:54', '2020-11-07 02:04:49', 'Nulla ut erat id mauris vulputate elementum.'),
+('EN ESPERA', 8, '2020-04-05 11:59:47', null, '2020-11-07 02:04:49', 'Nulla ut erat id mauris vulputate elementum.'),
 ('RESUELTO', 2, '2020-06-24 02:34:29', '2020-08-11 17:59:10', '2020-07-02 16:35:41', 'Aliquam sit amet diam in magna bibendum imperdiet.'),
 ('RESUELTO', 16, '2019-12-14 12:55:49', '2020-08-24 23:53:12', '2021-02-14 10:49:33', 'In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.'),
 ('RESUELTO', 8, '2020-01-19 01:07:10', '2020-10-02 00:18:27', '2020-09-09 20:08:04', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.'),
-('EN DESARROLLO', 15, '2020-06-24 10:55:06', '2020-09-15 06:55:53', '2020-11-02 00:44:18', 'Etiam pretium iaculis justo.'),
+('EN DESARROLLO', 15, '2020-06-24 10:55:06', null, '2020-11-02 00:44:18', 'Etiam pretium iaculis justo.'),
 ('RESUELTO', 8, '2019-12-21 07:16:25', '2020-07-17 22:32:47', '2020-12-12 17:39:23', 'Nam dui.'),
 ('CANCELADA', 20, '2020-02-03 00:03:28', '2020-09-09 01:14:58', '2020-08-02 05:42:01', 'Mauris ullamcorper purus sit amet nulla.'),
-('EN ESPERA', 5, '2020-05-13 06:36:05', '2020-08-31 06:55:26', '2020-07-18 17:50:48', 'Curabitur convallis.'),
+('EN ESPERA', 5, '2020-05-13 06:36:05', null, '2020-07-18 17:50:48', 'Curabitur convallis.'),
 ('CANCELADA', 17, '2019-12-31 20:23:44', '2020-07-15 04:59:01', '2021-01-09 03:07:19', 'Maecenas pulvinar lobortis est.'),
 ('EN ESPERA', 14, '2020-06-07 19:57:28', null, '2020-11-23 06:25:55', 'Nulla ut erat id mauris vulputate elementum.'),
 ('RESUELTO', 14, '2020-03-28 13:20:37', '2020-10-09 13:56:50', '2020-10-04 18:57:54', 'Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.'),
 ('RESUELTO', 7, '2020-02-28 16:16:24', '2020-09-13 14:40:10', '2020-10-22 10:54:43', 'Vivamus vestibulum sagittis sapien.'),
 ('EN ESPERA', 10, '2020-03-26 17:39:25', null, '2020-10-08 18:05:38', 'Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.'),
-('CANCELADA', 5, '2020-06-12 11:00:29', null, '2020-11-18 18:56:50', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.'),
+('CANCELADA', 5, '2020-06-12 11:00:29', '2020-09-13 14:40:10', '2020-11-18 18:56:50', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.'),
 ('EN DESARROLLO', 3, '2020-02-04 05:38:12', '2020-09-05 19:28:29', '2020-09-22 20:32:53', 'Morbi non lectus.'),
-('CANCELADA', 20, '2020-05-14 13:13:15', null, '2021-01-08 19:57:48', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.'),
-('EN DESARROLLO', 10, '2020-03-26 10:10:26', '2020-10-03 22:55:07', '2020-12-15 20:12:41', 'Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.'),
-('EN DESARROLLO', 19, '2020-06-22 00:27:59', '2020-08-19 07:40:56', '2020-11-15 23:56:50', 'Morbi vel lectus in quam fringilla rhoncus.'),
-('EN ESPERA', 8, '2020-05-12 09:56:33', '2020-10-12 09:46:07', '2020-09-23 00:57:01', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue.'),
-('EN DESARROLLO', 14, '2020-02-08 20:17:24', '2020-10-09 06:55:05', '2021-01-10 08:04:46', 'Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.'),
+('CANCELADA', 20, '2020-05-14 13:13:15', '2020-10-13 08:56:45', '2021-01-08 19:57:48', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.'),
+('EN DESARROLLO', 10, '2020-03-26 10:10:26', null, '2020-12-15 20:12:41', 'Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.'),
+('EN DESARROLLO', 19, '2020-06-22 00:27:59', null, '2020-11-15 23:56:50', 'Morbi vel lectus in quam fringilla rhoncus.'),
+('EN ESPERA', 8, '2020-05-12 09:56:33', null, '2020-09-23 00:57:01', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue.'),
+('EN DESARROLLO', 14, '2020-02-08 20:17:24', null, '2021-01-10 08:04:46', 'Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.'),
 ('CANCELADA', 14, '2020-06-16 16:16:03', '2020-10-13 10:06:24', '2021-02-16 02:35:43', 'Vivamus tortor.'),
 ('CANCELADA', 6, '2020-02-11 08:49:07', '2020-09-16 15:20:36', '2021-01-06 18:47:07', 'Praesent lectus.'),
 ('RESUELTO', 8, '2019-12-20 15:11:52', null, '2020-07-29 19:39:51', 'Duis bibendum.'),
 ('RESUELTO', 5, '2020-06-19 14:32:00', '2020-07-17 03:31:17', '2021-01-20 18:08:17', 'Etiam faucibus cursus urna.'),
 ('RESUELTO', 8, '2020-05-10 21:13:23', '2020-10-03 22:16:52', '2021-01-05 09:10:56', 'Nulla tellus.'),
 ('RESUELTO', 6, '2020-01-21 19:29:03', null, '2020-09-29 18:08:50', 'Vivamus tortor.'),
-('EN ESPERA', 20, '2020-05-07 09:35:17', '2020-08-12 07:38:07', '2021-01-17 23:29:34', 'Donec vitae nisi.'),
-('EN ESPERA', 7, '2020-01-27 17:44:08', '2020-07-05 23:30:20', '2020-08-17 17:11:57', 'Integer tincidunt ante vel ipsum.'),
-('EN DESARROLLO', 12, '2020-01-02 14:25:21', '2020-08-22 12:58:35', '2020-10-24 21:03:13', 'Praesent lectus.'),
+('EN ESPERA', 20, '2020-05-07 09:35:17', null, '2021-01-17 23:29:34', 'Donec vitae nisi.'),
+('EN ESPERA', 7, '2020-01-27 17:44:08', null, '2020-08-17 17:11:57', 'Integer tincidunt ante vel ipsum.'),
+('EN DESARROLLO', 12, '2020-01-02 14:25:21', null, '2020-10-24 21:03:13', 'Praesent lectus.'),
 ('RESUELTO', 2, '2020-05-01 07:36:49', '2020-07-19 22:45:14', '2020-09-18 22:37:16', 'Nunc nisl.'),
-('CANCELADA', 10, '2019-11-20 17:04:03', null, '2020-11-02 16:11:37', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae, Nulla dapibus dolor vel est.'),
-('EN DESARROLLO', 18, '2020-02-05 22:40:53', '2020-08-24 03:42:30', '2020-12-20 09:01:07', 'Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.'),
-('EN DESARROLLO', 16, '2020-06-25 13:47:29', '2020-11-27 21:01:34', '2020-08-09 20:03:55', 'Morbi a ipsum.'),
-('EN ESPERA', 3, '2020-05-12 12:41:06', '2020-08-17 10:01:16', '2020-08-06 12:11:07', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla.'),
-('EN ESPERA', 10, '2020-06-17 00:07:55', '2020-10-23 21:42:31', '2020-10-23 21:44:44', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.'),
-('EN ESPERA', 7, '2020-06-17 14:37:25', '2020-11-25 04:40:19', '2021-01-06 09:18:54', 'Morbi porttitor lorem id ligula.'),
+('CANCELADA', 10, '2019-11-20 17:04:03', '2020-10-13 08:56:45', '2020-11-02 16:11:37', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae, Nulla dapibus dolor vel est.'),
+('EN DESARROLLO', 18, '2020-02-05 22:40:53', null, '2020-12-20 09:01:07', 'Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.'),
+('EN DESARROLLO', 16, '2020-06-25 13:47:29', null, '2020-08-09 20:03:55', 'Morbi a ipsum.'),
+('EN ESPERA', 3, '2020-05-12 12:41:06', null, '2020-08-06 12:11:07', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla.'),
+('EN ESPERA', 10, '2020-06-17 00:07:55', null, '2020-10-23 21:44:44', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.'),
+('EN ESPERA', 7, '2020-06-17 14:37:25', null, '2021-01-06 09:18:54', 'Morbi porttitor lorem id ligula.'),
 ('CANCELADA', 8, '2020-05-18 16:09:43', '2020-10-17 13:59:15', '2020-09-13 04:03:20', 'Morbi ut odio.'),
 ('CANCELADA', 10, '2020-05-06 07:07:11', '2020-09-23 00:38:08', '2020-11-06 05:44:00', 'Ut at dolor quis odio consequat varius.'),
-('EN ESPERA', 6, '2020-06-25 14:38:17', '2020-07-20 08:20:33', '2020-09-10 14:23:28', 'Maecenas ut massa quis augue luctus tincidunt.'),
+('EN ESPERA', 6, '2020-06-25 14:38:17', null, '2020-09-10 14:23:28', 'Maecenas ut massa quis augue luctus tincidunt.'),
 ('CANCELADA', 17, '2020-05-30 22:27:53', '2020-07-22 12:30:47', '2021-02-07 16:30:16', 'Suspendisse accumsan tortor quis turpis.'),
 ('CANCELADA', 2, '2020-01-06 13:41:55', '2020-07-14 15:05:36', '2020-12-22 15:17:06', 'Duis consequat dui nec nisi volutpat eleifend.'),
 ('CANCELADA', 5, '2020-03-05 08:02:53', '2020-11-01 12:21:12', '2020-10-28 07:22:07', 'Nunc nisl.'),
-('EN DESARROLLO', 19, '2020-01-27 07:35:21', '2020-07-16 20:52:35', '2021-01-21 19:31:22', 'Vivamus in felis eu sapien cursus vestibulum.'),
+('EN DESARROLLO', 19, '2020-01-27 07:35:21', null, '2021-01-21 19:31:22', 'Vivamus in felis eu sapien cursus vestibulum.'),
 ('CANCELADA', 9, '2020-06-30 10:18:12', '2020-09-30 23:29:18', '2020-07-13 22:46:02', 'Sed vel enim sit amet nunc viverra dapibus.'),
 ('CANCELADA', 7, '2020-02-16 08:48:20', '2020-09-04 10:04:21', '2020-08-25 07:04:48', 'Praesent blandit.'),
-('EN DESARROLLO', 15, '2020-05-08 22:45:50', '2020-11-18 10:58:49', '2020-07-08 20:56:56', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'),
-('EN ESPERA', 4, '2020-01-14 05:29:14', '2020-08-12 08:58:56', '2020-12-09 02:00:01', 'Nulla justo.'),
-('EN ESPERA', 12, '2019-12-28 20:26:40', '2020-09-24 15:52:55', '2020-12-11 17:36:27', 'Integer non velit.'),
+('EN DESARROLLO', 15, '2020-05-08 22:45:50', null, '2020-07-08 20:56:56', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'),
+('EN ESPERA', 4, '2020-01-14 05:29:14', null, '2020-12-09 02:00:01', 'Nulla justo.'),
+('EN ESPERA', 12, '2019-12-28 20:26:40', null, '2020-12-11 17:36:27', 'Integer non velit.'),
 ('EN ESPERA', 11, '2020-04-24 05:41:58', null, '2020-12-29 20:30:44', 'Morbi porttitor lorem id ligula.'),
 ('RESUELTO', 17, '2020-04-12 19:49:48', '2020-08-21 16:03:18', '2020-10-05 17:34:48', 'Morbi a ipsum.'),
 ('CANCELADA', 18, '2020-02-21 16:24:47', '2020-09-17 09:21:12', '2020-07-26 06:38:18', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo.'),
 ('EN ESPERA', 19, '2020-04-20 06:59:23', null, '2020-10-18 22:34:54', 'Praesent id massa id nisl venenatis lacinia.'),
-('EN DESARROLLO', 10, '2020-06-30 03:57:05', '2020-07-17 04:56:51', '2021-02-20 16:15:24', 'Donec ut mauris eget massa tempor convallis.'),
+('EN DESARROLLO', 10, '2020-06-30 03:57:05', null, '2021-02-20 16:15:24', 'Donec ut mauris eget massa tempor convallis.'),
 ('EN DESARROLLO', 4, '2019-11-19 04:58:47', '2020-08-04 00:20:26', '2020-10-25 12:34:42', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'),
-('EN DESARROLLO', 12, '2020-02-05 03:29:31', '2020-09-13 01:42:40', '2020-10-01 04:33:27', 'Donec dapibus.'),
-('CANCELADA', 8, '2020-01-21 00:03:31', null, '2020-07-09 18:36:34', 'Cras non velit nec nisi vulputate nonummy.'),
-('CANCELADA', 7, '2019-11-24 18:23:18', null, '2021-01-14 16:17:29', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae, Duis faucibus accumsan odio.'),
-('EN ESPERA', 18, '2020-01-15 17:26:33', '2020-08-06 23:13:04', '2020-11-12 23:18:24', 'Nunc purus.'),
-('EN DESARROLLO', 19, '2020-02-01 09:41:15', '2020-08-01 10:21:44', '2020-09-22 18:01:48', 'Praesent lectus.'),
+('EN DESARROLLO', 12, '2020-02-05 03:29:31', null, '2020-10-01 04:33:27', 'Donec dapibus.'),
+('CANCELADA', 8, '2020-01-21 00:03:31', '2020-10-13 08:56:45', '2020-07-09 18:36:34', 'Cras non velit nec nisi vulputate nonummy.'),
+('CANCELADA', 7, '2019-11-24 18:23:18', '2020-10-13 08:56:45', '2021-01-14 16:17:29', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae, Duis faucibus accumsan odio.'),
+('EN ESPERA', 18, '2020-01-15 17:26:33', null, '2020-11-12 23:18:24', 'Nunc purus.'),
+('EN DESARROLLO', 19, '2020-02-01 09:41:15', null, '2020-09-22 18:01:48', 'Praesent lectus.'),
 ('RESUELTO', 19, '2020-03-23 02:45:57', '2020-09-10 08:19:22', '2020-09-30 16:05:28', 'Etiam pretium iaculis justo.'),
 ('RESUELTO', 13, '2020-06-02 17:39:28', '2020-07-04 06:09:11', '2021-02-25 03:50:40', 'In congue.'),
 ('EN DESARROLLO', 4, '2020-06-17 20:05:40', '2020-10-21 20:01:03', '2020-08-07 08:25:38', 'Nam tristique tortor eu pede.'),
@@ -388,28 +409,28 @@ INSERT INTO TAREAS (TarEstado, TarHrsAcum, TarFchIni, TarFchFin, TarFchFPrev, Ta
 ('CANCELADA', 2, '2020-04-02 21:32:48', '2020-10-30 10:17:41', '2020-11-26 07:04:13', 'Donec posuere metus vitae ipsum.'),
 ('CANCELADA', 9, '2020-06-29 19:28:28', '2020-08-09 11:18:20', '2020-10-11 09:32:10', 'Nulla mollis molestie lorem.'),
 ('EN DESARROLLO', 3, '2019-12-10 18:46:41', '2020-08-28 20:31:13', '2020-11-15 13:38:58', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'),
-('EN ESPERA', 4, '2020-03-10 10:58:33', '2020-11-21 00:50:07', '2020-12-09 14:16:17', 'Vivamus tortor.'),
-('EN ESPERA', 9, '2020-06-05 23:54:33', '2020-11-27 05:15:21', '2020-11-20 02:26:20', 'Praesent id massa id nisl venenatis lacinia.'),
+('EN ESPERA', 4, '2020-03-10 10:58:33', null, '2020-12-09 14:16:17', 'Vivamus tortor.'),
+('EN ESPERA', 9, '2020-06-05 23:54:33', null, '2020-11-20 02:26:20', 'Praesent id massa id nisl venenatis lacinia.'),
 ('RESUELTO', 15, '2020-04-23 09:21:22', '2020-11-27 14:37:45', '2021-02-25 01:08:44', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc.'),
 ('EN DESARROLLO', 12, '2020-04-22 22:33:20', null, '2020-11-29 17:01:56', 'Nullam porttitor lacus at turpis.'),
 ('CANCELADA', 15, '2019-12-15 19:47:38', '2020-07-10 22:51:19', '2020-12-11 13:03:55', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae, Duis faucibus accumsan odio.'),
 ('CANCELADA', 10, '2019-12-28 05:35:13', '2020-10-13 08:56:45', '2021-02-17 22:08:56', 'Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.'),
-('CANCELADA', 4, '2019-11-24 02:25:26', null, '2020-07-08 17:40:00', 'Nullam sit amet turpis elementum ligula vehicula consequat.'),
-('EN DESARROLLO', 15, '2020-01-05 23:20:37', '2020-10-15 20:17:30', '2020-07-13 06:48:30', 'Cras in purus eu magna vulputate luctus.'),
-('EN ESPERA', 17, '2020-01-14 13:41:29', '2020-08-03 13:20:49', '2020-11-13 20:17:59', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'),
+('CANCELADA', 4, '2019-11-24 02:25:26', '2020-10-13 08:56:45', '2020-07-08 17:40:00', 'Nullam sit amet turpis elementum ligula vehicula consequat.'),
+('EN DESARROLLO', 15, '2020-01-05 23:20:37', null, '2020-07-13 06:48:30', 'Cras in purus eu magna vulputate luctus.'),
+('EN ESPERA', 17, '2020-01-14 13:41:29', null, '2020-11-13 20:17:59', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'),
 ('EN ESPERA', 5, '2020-04-02 03:34:01', null, '2020-11-27 12:13:51', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo.'),
-('EN DESARROLLO', 20, '2020-03-10 03:21:00', '2020-10-22 03:13:39', '2020-11-27 20:49:27', 'Duis ac nibh.'),
+('EN DESARROLLO', 20, '2020-03-10 03:21:00', null, '2020-11-27 20:49:27', 'Duis ac nibh.'),
 ('RESUELTO', 6, '2020-01-04 13:50:27', '2020-10-04 02:53:40', '2020-12-07 10:20:58', 'Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci.'),
-('EN ESPERA', 10, '2020-04-21 05:25:17', '2020-11-06 05:36:25', '2020-09-16 18:42:40', 'Integer non velit.'),
-('EN DESARROLLO', 17, '2020-03-03 23:10:05', '2020-08-08 21:24:03', '2021-02-27 19:18:06', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae, Duis faucibus accumsan odio.'),
+('EN ESPERA', 10, '2020-04-21 05:25:17', null, '2020-09-16 18:42:40', 'Integer non velit.'),
+('EN DESARROLLO', 17, '2020-03-03 23:10:05', null, '2021-02-27 19:18:06', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae, Duis faucibus accumsan odio.'),
 ('CANCELADA', 8, '2020-05-21 04:34:10', '2020-09-02 22:38:27', '2020-08-16 03:14:46', 'Nam dui.'),
 ('CANCELADA', 11, '2020-03-23 15:56:12', '2020-11-09 17:35:30', '2020-09-10 06:50:01', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.'),
-('EN ESPERA', 5, '2020-02-24 21:01:59', '2020-10-26 00:32:51', '2020-07-07 01:04:36', 'Nam dui.'),
+('EN ESPERA', 5, '2020-02-24 21:01:59', null, '2020-07-07 01:04:36', 'Nam dui.'),
 ('EN DESARROLLO', 6, '2020-03-27 19:59:41', '2020-08-12 04:12:13', '2020-10-20 22:46:53', 'In hac habitasse platea dictumst.'),
 ('RESUELTO', 16, '2019-12-14 20:21:50', null, '2020-07-26 13:04:26', 'In sagittis dui vel nisl.'),
-('EN ESPERA', 7, '2020-04-09 04:56:58', '2020-08-06 19:19:59', '2020-08-06 00:38:38', 'Mauris lacinia sapien quis libero.'),
+('EN ESPERA', 7, '2020-04-09 04:56:58', null, '2020-08-06 00:38:38', 'Mauris lacinia sapien quis libero.'),
 ('EN DESARROLLO', 2, '2020-02-01 05:23:14', '2020-07-21 06:14:43', '2021-01-21 19:55:55', 'Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.'),
-('EN ESPERA', 18, '2020-02-24 23:03:12', '2020-10-10 22:32:19', '2021-02-14 03:33:50', 'Nulla tellus.');
+('EN ESPERA', 18, '2020-02-24 23:03:12', null, '2021-02-14 03:33:50', 'Nulla tellus.');
 
 
 INSERT INTO CTRLCONEXIONES (Usuario, EqpIP, CnxFchHr, CnxPermitida, TarID) VALUES

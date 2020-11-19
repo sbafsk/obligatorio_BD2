@@ -1,159 +1,79 @@
 -- ###
 --
--- Procedimientos y funciones
+-- Funciones
 --
 -- ##
 
-USE OBLIGATORIO1BD2
+USE OBLIGATORIOBD2
 GO
 
--- ##
--- A. Crear un procedimiento almacenado 'reproduccionesPorUsuarioPorAnio' 
--- que reciba como par�metros un a�o y un id de usuario, 
--- y devuelva por par�metro: 
--- la cantidad de artistas distintos escuchados por el usuario en el a�o, 
--- la cantidad de �lbumes distintos escuchados por el usuario en el a�o y 
--- la cantidad de temas distintos escuchados por el usuario en el a�o.
--- ##
 
-CREATE PROCEDURE reproduccionesPorUsuarioPorAnio
-	@anio datetime,
-	@idUsuario character(20),
-	@cantArtisAnio numeric(10) output,
-	@cantAlbumAnio numeric(10) output,
-	@cantTemasAnio numeric(10) output
+/*
+b. Crear una función que dada una zona y una cantidad de días X, devuelva la
+cantidad de vulnerabilidades encontradas en dicha zona en los últimos X días
+indicados por los parámetros
+*/
+
+CREATE FUNCTION CantVulnZonaUltimosDias(@ZonaId int, @xDias int) RETURNS int
 AS
 BEGIN
-	SELECT	@cantArtisAnio = COUNT(DISTINCT Ar.artistaId),
-			@cantAlbumAnio = COUNT(DISTINCT Al.albumId),
-			@cantTemasAnio = COUNT(DISTINCT CA.cancionId)
-	FROM	artista Ar, album Al, cancion Ca, historialCancion Hc
-	WHERE	Ar.artistaId = Al.artistaId AND
-			Al.albumId = CA.albumId AND
-			Ca.cancionId = Hc.cancionId AND
-			@anio = YEAR(Hc.historialCancionFecha) AND
-			@idUsuario = Hc.usuarioId 			
-END
-GO
 
--- ##
--- B. Crear un procedimiento almacenado 'albumMasEscuchadoArtista', 
--- que dado el c�digo de un artista, devuelva por par�metro, 
--- el �lbum con m�s reproducciones del artista, 
--- y la cantidad de reproducciones de dicho �lbum.
--- ##
-
-CREATE PROCEDURE albumMasEscuchadoArtista
-	@idArtista int,
-	@albumMasReproducciones varchar(30) output,
-	@cantReproducciones numeric(10) output
-AS
-BEGIN
-	SELECT	@albumMasReproducciones = MAX(Al.albumNombre),
-			@cantReproducciones = COUNT(DISTINCT Al.albumId)
-	FROM	album Al, cancion Ca, historialCancion Hc
-	WHERE	@idArtista = Al.artistaId AND
-			Al.albumId = CA.albumId AND
-			Ca.cancionId = Hc.cancionId 
-	ORDER BY  COUNT(DISTINCT Al.albumId) DESC
-END
-GO
-
--- ##
--- C. Implementar una funci�n 'reproduccionesPorArtistaPorAnio', 
--- que reciba como par�metros el id de un artista y un a�o, 
--- devolviendo la cantidad de reproducciones del artista en el a�o.
--- ##
-
-CREATE FUNCTION reproduccionesPorArtistaPorAnio(
-	@idArtista int,
-	@anio datetime
-	) 
-	RETURNS numeric(10)
-BEGIN
-	DECLARE @cantReproducciones numeric(10);
-
-	SELECT	@cantReproducciones = COUNT (*)
-	FROM	album Al, cancion Ca, historialCancion Hc
-	WHERE	@idArtista = Al.artistaId AND
-			Al.albumId = CA.albumId AND
-			Ca.cancionId = Hc.cancionId AND
-			@anio = YEAR(Hc.historialCancionFecha)
-			
-	RETURN @cantReproducciones
-END
-GO
-
--- ##
--- D. Implementar un procedimiento almacenado 'resumenArtistaPorAnio', 
--- que dados elc�digo de un artista y un a�o, 
--- devuelva por par�metro: la cantidad de reproducciones totales que tuvo el artista en el a�o, 
--- la cantidad de playLists distintas creadas en el a�o proporcionado 
--- en que aparece alguno de sus temas, 
--- la cantidad de usuarios distintos que escucharon alguno de sus temas en el a�o.
--- ##
-
-CREATE PROCEDURE resumenArtistaPorAnio
-	@idArtista int,
-	@anio datetime
-AS
-BEGIN
-	SELECT *
-	FROM
-
-END
-GO
-
-
--- ##
--- E. Crear una funci�n, �artistaNacionalMasEscuchadoRangoFechas� 
--- que reciba por par�metros un rango de fechas y 
--- devuelva el artista nacional m�s escuchado en dicho per�odo.
--- ##
-
-CREATE FUNCTION artistaNacionalMasEscuchadoRangoFechas(
-	@fechaDesde date,
-	@fechaHasta date
-	) returns varchar(30)
-AS
-BEGIN
-	DECLARE @artNacMasEscuchad varchar(30);
+	DECLARE @cantVul int
 	
-	SELECT @artNacMasEscuchad = Ar.artistaNombre
-	FROM artista Ar, album Al, cancion Ca, historialCancion Hc
-	WHERE	Ar.artistaId = Al.artistaId AND
-			Al.albumId = CA.albumId AND
-			Ca.cancionId = Hc.cancionId AND
-			@fechaDesde >= Hc.historialCancionFecha AND
-			@fechaHasta <= Hc.historialCancionFecha
-	ORDER BY  COUNT(Hc.cancionId) DESC
+	SELECT @cantVul = COUNT(CV.ScnVulnNom)
+	FROM CTRLVULNERABILIDADES CV
+	WHERE @ZonaId = CV.ZonaId AND
+		  CV.VulnFchScanO > DATEADD(day,-@xDias, '2020-09-30') -- lo ultimos registros son del 2020-09-28
 
-	RETURN @artNacMasEscuchad 
+	return @cantVul
 END
+GO
+
+SELECT dbo.CantVulnZonaUltimosDias(20, 90)
+
+select * from CTRLVULNERABILIDADES WHERE ZonaId = 20 ORDER BY VulnFchScanO 
 
 
 
--- ##
--- F. Implementar un procedimiento almacenado, �infoAlbum�, 
--- que reciba por par�metro el id de un �lbum y devuelva, 
--- tambi�n por par�metros: la cantidad de temas del �lbum, 
--- la fecha en que se reprodujo por primera vez alguno de los temas del �lbum 
--- y la cantidad de reproducciones del �lbum.
--- ##
+/*
+c. Crear una función que dada una herramienta de escaneo devuelva el nombre de la
+zona con más vulnerabilidades criticas, altas, encontradas por escaneos realizados
+por dicha herramienta. Si hay más de una zona en dichas condiciones devolver la
+que tenga la vulnerabilidad más reciente
+*/
 
-
-
--- ##
--- G. Crear una funci�n 'temasPorArtista' que reciba como par�metro un id de artista y
--- devuelva la cantidad de temas de dicho artista.
--- ## 
-
-CREATE FUNCTION temasPorArtista(
-	@idArtista int)
-	RETURNS NUMERIC(10)
+CREATE FUNCTION ZonaMasCritPorHerr(@scnHerr varchar(100)) RETURNS varchar(50)
 AS
 BEGIN
-	DECLARE @cantidadTemas NUMERIC(10)
-	SELECT 
+
+	DECLARE @zonaNom varchar(50)
+	
+	SELECT TOP(1) @zonaNom = Z.ZonaNom
+	FROM CTRLVULNERABILIDADES CV, ZONAS Z
+	WHERE	@scnHerr = CV.ScnHerr AND
+			CV.VulnCriticidad = 'ALTA' AND
+			Z.ZonaId = CV.ZonaId
+	GROUP BY  Z.ZonaNom
+	ORDER BY COUNT(CV.ZonaId) DESC
+
+	return @zonaNom
+END
+GO
+
+/* TEST */
+SELECT dbo.ZonaMasCritPorHerr('Ad-aware')
+
+SELECT  TOP(1) Z.ZonaNom
+FROM CTRLVULNERABILIDADES CV, ZONAS Z
+
+WHERE	'Ad-aware' = CV.ScnHerr AND 
+		Z.ZonaId = CV.ZonaId
+GROUP BY  Z.ZonaNom
+ORDER BY COUNT(CV.ZonaId) DESC, CV.VulnFchScanO DESC
+
+select * from CTRLVULNERABILIDADES WHERE ZonaId = 20 ORDER BY VulnFchScanO 
+select * from ZONAS
+
+
 
 
