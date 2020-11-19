@@ -1,14 +1,13 @@
 -- CREACION DE LA BASE DE DATOS CON RESTRICCIONES
 --
 
-DROP DATABASE IF EXISTS OBLIGATORIOBD2
-
-CREATE DATABASE OBLIGATORIOBD2
+DROP DATABASE IF EXISTS OBLIGATORIOBD2;
 GO
 
+CREATE DATABASE OBLIGATORIOBD2;
+GO
 
-
-USE OBLIGATORIOBD2
+USE OBLIGATORIOBD2;
 GO
 
 /*
@@ -26,7 +25,6 @@ Se considera que la cantidad de horas de trabajo acumuladas debe ser mayor a 1 h
 sola gestión inicial lleva por lo menos ese tiempo.
 
 */
-
 Create Table TAREAS (
 	TarId int identity(1,1)	not null, 
 	TarEstado varchar(15) NOT NULL, 
@@ -49,10 +47,7 @@ nombre de las zonas es un dato obligatorio y no existen dos zonas con igual nomb
 Al momento de ingresar los datos suponer que hay una zona por cada área de la Empresa, y una
 zona llamada DMZ donde están los equipos que conforman la Red Perimetral.
 */
-
-
-
-CREATE Table ZONAS(
+Create Table ZONAS (
 	ZonaId int IDENTITY(1,1), 
 	ZonaNom varchar(50) NOT NULL UNIQUE,
 	ZonaDescrip varchar(100),
@@ -79,8 +74,6 @@ Create Table USUARIOS (
 	) 
 GO
 
-
-
 /*
 EQUIPOS (EqpIP, EqpNom, EqpTipo, EqpSO, ZonaId)
 Registra el equipamiento informático de la empresa, los cuales se identifican por su IP (EqpIP), la
@@ -103,23 +96,17 @@ Create Table EQUIPOS (
 	EqpSO  varchar(10), 
 	ZonaId int NOT NULL,
 	PRIMARY KEY (EqpIP),
-	FOREIGN KEY (ZonaId) REFERENCES ZONAS(ZonaId),	
+	FOREIGN KEY (ZonaId) REFERENCES ZONAS(ZonaId),
 	CHECK( EqpIP LIKE     '%_.%_.%_.%_'  -- 3 periods and no empty octets 
 		   AND EqpIP NOT LIKE '%.%.%.%.%'  -- not 4 periods or more 
 		   AND EqpIP NOT LIKE '%[0-9][0-9][0-9][0-9]%'  -- not more than 3 digits per octet 
 		   AND EqpIP NOT LIKE '%[3-9][0-9][0-9]%'  -- NOT 300 - 999 
 		   AND EqpIP NOT LIKE '%2[6-9][0-9]%'  -- NOT 260 - 299 
 		   AND EqpIP NOT LIKE '%25[6-9]%'),  -- NOT 256 - 259 
-
 	--CHECK (EqpIP LIKE '([0-9]{0,3}\.){3}[0-9]{0,3}'),
-	--CHECK (EqpIP LIKE '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}'), ([0-9]{0,3}\.){3}[0-9]{0,3}
-
 	CHECK (EqpTipo = 'Terminal' OR EqpTipo = 'Servidor' OR EqpTipo = 'Tablet' OR EqpTipo = 'Impresora')
 	)
 GO
-
-
-
 
 /*
 PERMISOSCNX (Usuario, ZonaId, Habilitado)
@@ -147,13 +134,12 @@ Si el usuario está intentando conectarse a una zona para la cual tiene permiso 
 conexión, si una conexión fue permitida o no se registra en el campo CnxPermitida
 En el campo TarID indica la tarea que analizara el caso, en caso de ser necesario.
 */
-
 Create Table CTRLCONEXIONES (
 	CnxId int identity(1,1) not null, 
-	Usuario varchar(50), 
+	Usuario varchar(50) , 
 	EqpIP char(15), 
 	CnxFchHr datetime NOT NULL, 
-	CnxPermitida char(2), 
+	CnxPermitida bit, 
 	TarID int,
 	FOREIGN KEY (Usuario) REFERENCES USUARIOS(Usuario),
 	FOREIGN KEY (TarId) REFERENCES TAREAS(TarId),
@@ -221,6 +207,8 @@ Create Table RACI (
 	RaciUsuario varchar(50) NOT NULL, 
 	RaciRol char(1) NOT NULL,
 	PRIMARY KEY (RaciTarId, RaciUsuario, RaciRol),
+	FOREIGN KEY (RaciTarId) REFERENCES TAREAS,
+	FOREIGN KEY (RaciUsuario) REFERENCES USUARIOS,
 	CHECK (RaciRol = 'R' OR RaciRol = 'A' OR RaciRol = 'C' OR RaciRol = 'I')
 	)
 
@@ -252,6 +240,11 @@ CREATE INDEX ind_ctrlvulScnHerrScnVulnNom ON CTRLVULNERABILIDADES(ScnHerr, ScnVu
 CREATE INDEX ind_ctrlvulTarId ON CTRLVULNERABILIDADES(TarId) 
 
 CREATE INDEX ind_ctrlvulZonaId ON CTRLVULNERABILIDADES(ZonaId) 
+
+-- Tabla RACI columnas RaciTarId y RaciUsuario
+CREATE INDEX ind_RaciTarId ON RACI(RaciTarId)
+
+CREATE INDEX ind_RaciUsuario ON RACI(RaciUsuario)
 
 --
 -- Indices comunmente utilizados en consultas.
